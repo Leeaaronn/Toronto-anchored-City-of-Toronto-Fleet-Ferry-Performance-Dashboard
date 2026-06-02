@@ -67,26 +67,26 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| DATA-01 | TBD | Pending |
-| DATA-02 | TBD | Pending |
-| DATA-03 | TBD | Pending |
-| DATA-04 | TBD | Pending |
-| MODEL-01 | TBD | Pending |
-| MODEL-02 | TBD | Pending |
-| MODEL-03 | TBD | Pending |
-| MODEL-04 | TBD | Pending |
-| KPI-01 | TBD | Pending |
-| KPI-02 | TBD | Pending |
-| REPORT-01 | TBD | Pending |
-| NARR-01 | TBD | Pending |
-| NARR-02 | TBD | Pending |
-| SHIP-01 | TBD | Pending |
+| DATA-01 | Phase 1 | Pending |
+| DATA-02 | Phase 1 | Pending |
+| DATA-03 | Phase 1 | Pending |
+| DATA-04 | Phase 1 | Pending |
+| MODEL-01 | Phase 2 | Pending |
+| MODEL-02 | Phase 2 | Pending |
+| MODEL-03 | Phase 2 | Pending |
+| MODEL-04 | Phase 2 | Pending |
+| KPI-01 | Phase 3 | Pending |
+| KPI-02 | Phase 3 | Pending |
+| REPORT-01 | Phase 4 | Pending |
+| NARR-01 | Phase 5 | Pending |
+| NARR-02 | Phase 5 | Pending |
+| SHIP-01 | Phase 6 | Pending |
 
 **Coverage:**
 - v1 requirements: 14 total
-- Mapped to phases: 0 (roadmap pending)
-- Unmapped: 14 ⚠️
+- Mapped to phases: 14 ✓
+- Unmapped: 0
 
 ---
 *Requirements defined: 2026-06-02*
-*Last updated: 2026-06-02 after initial definition*
+*Last updated: 2026-06-02 after roadmap creation (6 phases, 14/14 mapped)*
