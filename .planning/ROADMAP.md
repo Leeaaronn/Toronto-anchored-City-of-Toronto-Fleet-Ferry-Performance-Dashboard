@@ -30,7 +30,10 @@ Decimal phases appear between their surrounding integers in numeric order.
   2. The 209 null `AVAILABILITY_YTD` values are preserved as genuine NULL (zero rows where an originally-null value became 0), and a test asserts null count == 209 and non-null count == 4,405.
   3. A data dictionary and DQ report exist documenting nulls, ranges, ferry skew (median 12 / max 7,229), the retired-dataset pull-date caveat, and the 5.8% vs 14% underutilization discrepancy framed as a stated insight.
   4. Pandera schemas encode the row-count, 209-null, 4,405-non-null, and 0–1 availability-bounds expectations as executable regression guards that run green.
-**Plans**: TBD
+**Plans**: 3 plans
+  - [ ] 01-01-PLAN.md — uv 3.12 project + Bronze ingest + row-count/null guards (DATA-01, DATA-03)
+  - [ ] 01-02-PLAN.md — Pandera DQ contracts: 0–1 bounds, value sets, dtypes (DATA-04)
+  - [ ] 01-03-PLAN.md — profiling facts + data dictionary + DQ report (DATA-02)
 
 ### Phase 2: Transform, Model & Join Integrity
 **Goal**: The Gold star schema exists as type-preserving Parquet with the value-added availability⋈utilization join correct and tested — the critical-path node that the disposal-candidate cross-measure, ferry heatmap, and time-intelligence all depend on.
@@ -95,7 +98,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Ingest, Profile & DQ Baseline | 0/TBD | Not started | - |
+| 1. Ingest, Profile & DQ Baseline | 0/3 | Not started | - |
 | 2. Transform, Model & Join Integrity | 0/TBD | Not started | - |
 | 3. KPI Layer & Measures Spec | 0/TBD | Not started | - |
 | 4. Power BI Report Specification | 0/TBD | Not started | - |
