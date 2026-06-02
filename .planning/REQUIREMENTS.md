@@ -12,7 +12,7 @@ Requirements for initial release. Each maps to roadmap phases.
 - [x] **DATA-01**: Three source CSVs (vehicle availability, light-duty utilization, ferry ticket counts) load into DuckDB Bronze tables with explicit types and fail-fast row-count assertions (4,614 / 2,086 / 272,529)
 - [ ] **DATA-02**: A data dictionary and data-quality report document nulls, ranges, outliers, ferry skew (median 12 / max 7,229), the retired-dataset pull-date caveat, and the 5.8% vs 14% underutilization discrepancy as a stated insight
 - [x] **DATA-03**: The 209 null `AVAILABILITY_YTD` values are preserved as genuine NULL (never coerced to 0) and excluded from rate calcs (denominator 4,405), flagged as a DQ gap with no imputation
-- [ ] **DATA-04**: Pandera schemas encode the row-count, 209-null, 4,405-non-null, and 0–1 availability-bounds expectations as executable regression guards
+- [x] **DATA-04**: Pandera schemas encode the row-count, 209-null, 4,405-non-null, and 0–1 availability-bounds expectations as executable regression guards
 
 ### Transform & Model
 
@@ -70,7 +70,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | DATA-01 | Phase 1 | Complete |
 | DATA-02 | Phase 1 | Pending |
 | DATA-03 | Phase 1 | Complete |
-| DATA-04 | Phase 1 | Pending |
+| DATA-04 | Phase 1 | Complete |
 | MODEL-01 | Phase 2 | Pending |
 | MODEL-02 | Phase 2 | Pending |
 | MODEL-03 | Phase 2 | Pending |
