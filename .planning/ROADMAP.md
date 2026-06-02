@@ -12,7 +12,7 @@ This project moves through a strictly sequential data-contract pipeline: ingest 
 
 Decimal phases appear between their surrounding integers in numeric order.
 
-- [ ] **Phase 1: Ingest, Profile & DQ Baseline** - Load 3 CSVs into validated Bronze tables; produce data dictionary, DQ report, and Pandera regression guards
+- [x] **Phase 1: Ingest, Profile & DQ Baseline** - Load 3 CSVs into validated Bronze tables; produce data dictionary, DQ report, and Pandera regression guards (completed 2026-06-02)
 - [ ] **Phase 2: Transform, Model & Join Integrity** - Build the Gold star schema as Parquet with the availability⋈utilization join and split date/time dimensions, all tested
 - [ ] **Phase 3: KPI Layer & Measures Spec** - Compute all Domain A/B KPIs in SQL against audit benchmarks; produce KPI definitions doc + DAX-ready measures spec
 - [ ] **Phase 4: Power BI Report Specification** - Page-by-page report spec with exact Gold names, relationships, slicers, theme, DAX, and PDF layout
@@ -33,7 +33,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 **Plans**: 3 plans
   - [x] 01-01-PLAN.md — uv 3.12 project + Bronze ingest + row-count/null guards (DATA-01, DATA-03)
   - [x] 01-02-PLAN.md — Pandera DQ contracts: 0–1 bounds, value sets, dtypes (DATA-04)
-  - [ ] 01-03-PLAN.md — profiling facts + data dictionary + DQ report (DATA-02)
+  - [x] 01-03-PLAN.md — profiling facts + data dictionary + DQ report (DATA-02)
 
 ### Phase 2: Transform, Model & Join Integrity
 **Goal**: The Gold star schema exists as type-preserving Parquet with the value-added availability⋈utilization join correct and tested — the critical-path node that the disposal-candidate cross-measure, ferry heatmap, and time-intelligence all depend on.
@@ -98,7 +98,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Ingest, Profile & DQ Baseline | 2/3 | In Progress|  |
+| 1. Ingest, Profile & DQ Baseline | 3/3 | Complete   | 2026-06-02 |
 | 2. Transform, Model & Join Integrity | 0/TBD | Not started | - |
 | 3. KPI Layer & Measures Spec | 0/TBD | Not started | - |
 | 4. Power BI Report Specification | 0/TBD | Not started | - |
