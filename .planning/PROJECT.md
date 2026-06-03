@@ -19,15 +19,15 @@ Produce clean, tested, star-schema modeled output plus documented KPI/DAX specs 
 - [x] Ingest 3 CSVs into DuckDB with schema + row-count validation — *Validated in Phase 1 (DATA-01/03); typed Bronze ingest, fail-fast counts 4,614/2,086/272,529, 24 green tests*
 - [x] Data dictionary + data-quality report (nulls, ranges, outliers, the 5.8% vs 14% underutilization discrepancy, documented assumptions) — *Validated in Phase 1 (DATA-02); `deliverables/data_dictionary.md` + `dq_report.md`*
 - [x] Exclude the 209 null `AVAILABILITY_YTD` values from rate calcs and flag as a DQ gap (no imputation) — *Validated in Phase 1 (DATA-03/04); raw-CSV value-level guard + Pandera 0–1 bounds*
+- [x] Normalize `UNIT_NO` (canonical-integer `TRY_CAST`, 44 alphanumeric units preserved), parse ferry timestamps (15-min slots, 0 NaT), derive fleet_age / season / daypart / day_of_week / is_weekend / sales_redemption_gap — *Validated in Phase 2 (MODEL-01)*
+- [x] Build star-schema tables: `dim_division` (21 conformed), `fact_vehicle` (4,614 enriched), `fact_ferry` (272,529), gapless `dim_date` (4,383), 96-row `dim_time` — *Validated in Phase 2 (MODEL-02)*
+- [x] Join availability ⋈ utilization on normalized `UNIT_NO` (matched 2,080 / unmatched 6 anti-join, no fan-out, unique key) with join-integrity tests; 6-unmatched + 44-alphanumeric DQ findings documented — *Validated in Phase 2 (MODEL-03)*
+- [x] Output clean type-preserving Parquet + readable CSV (10 files in `data/gold/`, 209 NULLs preserved through export) for Power BI import — *Validated in Phase 2 (MODEL-04)*
 
 ### Active
 
 <!-- Current scope. Building toward these. Detailed in REQUIREMENTS.md. -->
 
-- [ ] Normalize `UNIT_NO`, parse ferry timestamps, derive fleet_age / season / daypart / day_of_week / is_weekend / sales_redemption_gap
-- [ ] Build star-schema tables: `dim_division`, `fact_vehicle`, `fact_ferry`, `dim_date`, `dim_time`
-- [ ] Join availability ⋈ utilization on normalized `UNIT_NO` (target: 2,080 of 2,086 match) with join-integrity tests
-- [ ] Output clean Parquet/CSV for Power BI import
 - [ ] Implement all Domain A (fleet maintenance) and Domain B (ferry) KPIs as SQL/Python, validated against audit benchmarks
 - [ ] KPI definitions doc (formulas) + DAX-ready measures spec (copy-paste into Power BI)
 - [ ] Page-by-page Power BI report spec (Fleet Maintenance, Ferry Operations, Summary/Insights) with slicer plan, theme, exact DAX, PDF-export layout
@@ -102,4 +102,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-06-03 — Phase 1 (Ingest, Profile & DQ Baseline) complete: Bronze tables + DQ deliverables + Pandera guards, 24 tests green on DuckDB 1.5.3*
+*Last updated: 2026-06-03 — Phase 2 (Transform, Model & Join Integrity) complete: Gold star schema (5 tables) + availability⋈utilization join (2,080 matched, no fan-out) + type-preserving Parquet/CSV export in `data/gold/`, 58 tests green; verification 12/12 must-haves on DuckDB 1.5.3*
