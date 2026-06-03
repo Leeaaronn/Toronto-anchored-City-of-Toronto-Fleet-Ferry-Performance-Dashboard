@@ -13,7 +13,7 @@ This project moves through a strictly sequential data-contract pipeline: ingest 
 Decimal phases appear between their surrounding integers in numeric order.
 
 - [x] **Phase 1: Ingest, Profile & DQ Baseline** - Load 3 CSVs into validated Bronze tables; produce data dictionary, DQ report, and Pandera regression guards (completed 2026-06-02)
-- [ ] **Phase 2: Transform, Model & Join Integrity** - Build the Gold star schema as Parquet with the availability⋈utilization join and split date/time dimensions, all tested
+- [x] **Phase 2: Transform, Model & Join Integrity** - Build the Gold star schema as Parquet with the availability⋈utilization join and split date/time dimensions, all tested (completed 2026-06-03)
 - [ ] **Phase 3: KPI Layer & Measures Spec** - Compute all Domain A/B KPIs in SQL against audit benchmarks; produce KPI definitions doc + DAX-ready measures spec
 - [ ] **Phase 4: Power BI Report Specification** - Page-by-page report spec with exact Gold names, relationships, slicers, theme, DAX, and PDF layout
 - [ ] **Phase 5: Narrative Deliverables** - Full drafts of the requirements-gathering approach and stakeholder-engagement strategy narratives
@@ -47,7 +47,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 **Plans**: 3 plans
   - [x] 02-01-PLAN.md — config Gold constants + transform staging (TRY_CAST key, ferry 15-min, derived fields) + gold fixture + test_derived_fields (MODEL-01)
   - [x] 02-02-PLAN.md — model.py 5 Gold tables + availability⋈utilization join + role-playing dim_division + join-integrity/dimension tests (MODEL-02, MODEL-03)
-  - [ ] 02-03-PLAN.md — export.py Parquet+CSV + roundtrip test + 6-unmatched/44-alphanumeric DQ findings (MODEL-04)
+  - [x] 02-03-PLAN.md — export.py Parquet+CSV + roundtrip test + 6-unmatched/44-alphanumeric DQ findings (MODEL-04)
 
 ### Phase 3: KPI Layer & Measures Spec
 **Goal**: Every KPI has an authoritative SQL/Python ground-truth value cross-checked against audit benchmarks, paired with copy-paste DAX in a measures spec — the values the Power BI dashboard must reproduce.
@@ -102,7 +102,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Ingest, Profile & DQ Baseline | 3/3 | Complete   | 2026-06-02 |
-| 2. Transform, Model & Join Integrity | 2/3 | In Progress|  |
+| 2. Transform, Model & Join Integrity | 3/3 | Complete   | 2026-06-03 |
 | 3. KPI Layer & Measures Spec | 0/TBD | Not started | - |
 | 4. Power BI Report Specification | 0/TBD | Not started | - |
 | 5. Narrative Deliverables | 0/TBD | Not started | - |
