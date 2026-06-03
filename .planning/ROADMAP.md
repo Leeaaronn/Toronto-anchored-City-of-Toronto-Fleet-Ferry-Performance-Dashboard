@@ -58,7 +58,10 @@ Decimal phases appear between their surrounding integers in numeric order.
   2. All Domain B ferry KPIs are computed: lifetime/period totals, YoY trend with a test asserting 2020 < 2019 (COVID dip present), seasonality profile, day-of-week × hour-of-day heatmap, and sales-to-redemption gap; distribution stats confirm max window ≈ 7,229 and median ≈ 12.
   3. Overall availability is computed as the pooled per-vehicle mean (not the mean-of-class-means) with all availability rates in [0,1], asserted by test as the canonical grand-total guard.
   4. A KPI definitions doc (formulas) and a DAX-ready measures spec pair each KPI with copy-paste DAX and its SQL validation value, including the 5.8% vs 14% reconciliation note.
-**Plans**: TBD
+**Plans**: 3 plans
+  - [ ] 03-01-PLAN.md — config KPI targets + kpis.py compute layer + committed data/kpi snapshot (KPI-01)
+  - [ ] 03-02-PLAN.md — tests/test_kpis.py snapshot-as-contract guards (pooled-mean / 2020<2019 / 7229·12 / 209-null) (KPI-01)
+  - [ ] 03-03-PLAN.md — kpi_definitions.md + measures_spec.md deliverable docs (DAX ⋈ SQL validation values) (KPI-02)
 
 ### Phase 4: Power BI Report Specification
 **Goal**: The user can build the three-page dashboard with zero ambiguity — the report spec is a precise contract between the Gold data layer and the manually-authored Power BI canvas.
@@ -103,7 +106,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6
 |-------|----------------|--------|-----------|
 | 1. Ingest, Profile & DQ Baseline | 3/3 | Complete   | 2026-06-02 |
 | 2. Transform, Model & Join Integrity | 3/3 | Complete   | 2026-06-03 |
-| 3. KPI Layer & Measures Spec | 0/TBD | Not started | - |
+| 3. KPI Layer & Measures Spec | 0/3 | Not started | - |
 | 4. Power BI Report Specification | 0/TBD | Not started | - |
 | 5. Narrative Deliverables | 0/TBD | Not started | - |
 | 6. Ship | 0/TBD | Not started | - |
