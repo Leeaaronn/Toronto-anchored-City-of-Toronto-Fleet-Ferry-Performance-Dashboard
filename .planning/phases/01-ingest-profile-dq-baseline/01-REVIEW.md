@@ -20,7 +20,8 @@ findings:
   warning: 4
   info: 5
   total: 9
-status: issues_found
+status: resolved
+resolution: All 4 warnings (WR-01..WR-04) fixed in commit 6cd54cb; suite green (24 passed). Info items left as-is (non-blocking).
 ---
 
 # Phase 1: Code Review Report
