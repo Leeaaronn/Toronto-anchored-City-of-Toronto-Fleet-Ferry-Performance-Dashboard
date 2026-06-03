@@ -4,13 +4,13 @@ milestone: v1.0
 milestone_name: milestone
 status: executing
 stopped_at: Phase 2 context gathered
-last_updated: "2026-06-03T05:39:50.074Z"
-last_activity: 2026-06-03 -- Phase 02 planning complete
+last_updated: "2026-06-03T05:48:59.642Z"
+last_activity: 2026-06-03
 progress:
   total_phases: 6
   completed_phases: 1
   total_plans: 6
-  completed_plans: 3
+  completed_plans: 4
   percent: 17
 ---
 
@@ -21,16 +21,16 @@ progress:
 See: .planning/PROJECT.md (updated 2026-06-01)
 
 **Core value:** Produce clean, tested, star-schema modeled output plus documented KPI/DAX specs that let the user build a credible, audit-grounded Power BI dashboard — anchored on vehicle downtime and underutilization plus the value-added availability⋈utilization join.
-**Current focus:** Phase 2 — transform, model & join integrity
+**Current focus:** Phase 02 — transform-model-join-integrity
 
 ## Current Position
 
-Phase: 2
-Plan: Not started
+Phase: 02 (transform-model-join-integrity) — EXECUTING
+Plan: 2 of 3
 Status: Ready to execute
-Last activity: 2026-06-03 -- Phase 02 planning complete
+Last activity: 2026-06-03
 
-Progress: [██████████] 100%
+Progress: [███████░░░] 67%
 
 ## Performance Metrics
 
@@ -55,6 +55,7 @@ Progress: [██████████] 100%
 | Phase 01 P01 | 4 | 3 tasks | 9 files |
 | Phase 01 P02 | 2min | 2 tasks | 2 files |
 | Phase 01 P03 | 3min | 2 tasks | 4 files |
+| Phase 02 P01 | 3min | 3 tasks | 4 files |
 
 ## Accumulated Context
 
@@ -69,6 +70,7 @@ Recent decisions affecting current work:
 - [Phase ?]: Pinned duckdb>=1.4,<1.5 and pandera>=0.26 (1.5.x not on PyPI); ingest_bronze forces only load-bearing column types via read_csv types= override; DATA-01/DATA-03 locked as 11 pytest guards (209 null / 4,405 non-null)
 - [Phase ?]: Phase 1 P02: DATA-04 enforced via Pandera schemas — AVAILABILITY_YTD Check.in_range(0,1)+nullable, Utilization/Specialized value sets, dtypes; dtype guard uses is_string_dtype for pandas 3.0 StringDtype
 - [Phase ?]: Phase 1 P03: DATA-02 via profile_facts (DuckDB SUMMARIZE + targeted SQL, HTML skipped); deliverables data_dictionary.md + dq_report.md frame 5.8% vs ~14% as cited AG-2019.AU2.3 insight (A2) and retired-dataset pull date (A1)
+- [Phase ?]: Phase 2 P01 (MODEL-01): TRY_CAST(UNIT_NO AS BIGINT) canonical key on both datasets (44 alnum avail units survive with NULL key); fleet_age=REFERENCE_YEAR(2023)-YEAR signed/unclamped; ferry ts_15 + season/daypart/dow/is_weekend/signed gap; 209 nulls flow through; gold fixture gates it
 
 ### Pending Todos
 
@@ -92,6 +94,6 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-06-03T01:05:50.886Z
+Last session: 2026-06-03T05:48:32.848Z
 Stopped at: Phase 2 context gathered
-Resume file: .planning/phases/02-transform-model-join-integrity/02-CONTEXT.md
+Resume file: None

@@ -16,7 +16,7 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Transform & Model
 
-- [ ] **MODEL-01**: `UNIT_NO` is normalized to a canonical integer on both datasets; ferry timestamps are parsed tz-naive and rounded to 15-minute slots; derived fields (`fleet_age`, `season`, `daypart`, `day_of_week`, `is_weekend`, `sales_redemption_gap`) are produced
+- [x] **MODEL-01**: `UNIT_NO` is normalized to a canonical integer on both datasets; ferry timestamps are parsed tz-naive and rounded to 15-minute slots; derived fields (`fleet_age`, `season`, `daypart`, `day_of_week`, `is_weekend`, `sales_redemption_gap`) are produced
 - [ ] **MODEL-02**: Gold star-schema tables are built — `dim_division`, `fact_vehicle` (degenerate enriched dim), `fact_ferry`, gapless `dim_date` (2015→2026), and 96-row `dim_time`
 - [ ] **MODEL-03**: Availability ⋈ utilization joins on the normalized `UNIT_NO` with join-integrity tests asserting matched == 2,080, unmatched == 6, unique `fact_vehicle` key, and no fan-out; the 6 unmatched rows are documented as a DQ finding
 - [ ] **MODEL-04**: All five Gold tables are exported as type-preserving Parquet (plus readable CSV) ready for Power BI import
@@ -71,7 +71,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | DATA-02 | Phase 1 | Complete |
 | DATA-03 | Phase 1 | Complete |
 | DATA-04 | Phase 1 | Complete |
-| MODEL-01 | Phase 2 | Pending |
+| MODEL-01 | Phase 2 | Complete |
 | MODEL-02 | Phase 2 | Pending |
 | MODEL-03 | Phase 2 | Pending |
 | MODEL-04 | Phase 2 | Pending |
