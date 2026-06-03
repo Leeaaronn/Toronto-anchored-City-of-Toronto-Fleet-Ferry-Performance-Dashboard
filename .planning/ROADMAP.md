@@ -46,7 +46,7 @@ Decimal phases appear between their surrounding integers in numeric order.
   4. All five Gold tables export as type-preserving Parquet (plus readable CSV) ready for Power BI import.
 **Plans**: 3 plans
   - [x] 02-01-PLAN.md — config Gold constants + transform staging (TRY_CAST key, ferry 15-min, derived fields) + gold fixture + test_derived_fields (MODEL-01)
-  - [ ] 02-02-PLAN.md — model.py 5 Gold tables + availability⋈utilization join + role-playing dim_division + join-integrity/dimension tests (MODEL-02, MODEL-03)
+  - [x] 02-02-PLAN.md — model.py 5 Gold tables + availability⋈utilization join + role-playing dim_division + join-integrity/dimension tests (MODEL-02, MODEL-03)
   - [ ] 02-03-PLAN.md — export.py Parquet+CSV + roundtrip test + 6-unmatched/44-alphanumeric DQ findings (MODEL-04)
 
 ### Phase 3: KPI Layer & Measures Spec
@@ -102,7 +102,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Ingest, Profile & DQ Baseline | 3/3 | Complete   | 2026-06-02 |
-| 2. Transform, Model & Join Integrity | 1/3 | In Progress|  |
+| 2. Transform, Model & Join Integrity | 2/3 | In Progress|  |
 | 3. KPI Layer & Measures Spec | 0/TBD | Not started | - |
 | 4. Power BI Report Specification | 0/TBD | Not started | - |
 | 5. Narrative Deliverables | 0/TBD | Not started | - |

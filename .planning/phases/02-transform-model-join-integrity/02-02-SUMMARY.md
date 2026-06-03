@@ -98,6 +98,10 @@ None - no external service configuration required.
 - `dq_unmatched_utilization` (6 rows) is materialized and ready to feed the Plan-03 DQ finding.
 - fact_ferry remains at full 15-minute grain; any KPI rollup is a Phase-3 concern per RESEARCH Open Question 2.
 
+## Self-Check: PASSED
+
+All created files exist on disk (model.py, test_join_integrity.py, test_dimensions.py, 02-02-SUMMARY.md) and all task commits (e931fc0, 7e7d18d, 2d14b63) are present in git history.
+
 ---
 *Phase: 02-transform-model-join-integrity*
 *Completed: 2026-06-03*
