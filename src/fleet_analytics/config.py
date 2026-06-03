@@ -64,3 +64,29 @@ FERRY_TYPES: dict[str, str] = {
     "Redemption Count": "BIGINT",
     "Sales Count": "BIGINT",
 }
+
+# --- Phase-2 Gold-layer constants -------------------------------------------
+# REFERENCE_YEAR drives fleet_age = REFERENCE_YEAR - model YEAR (D-07/D-08).
+# 2023 is chosen to anchor fleet age to the audit/reporting baseline: the May
+# 2023 FSD report to the General Government Committee and the audit's 2022-2023
+# "actual" availability benchmarks (Light Duty 91%, Heavy Duty 76%, etc.) are all
+# stated for that year. Using 2023 makes fleet_age comparable to those cited
+# benchmarks. Negative ages (future model years 2024-2026) are legitimate and are
+# NOT clamped (Pitfall 5; range observed -3..41).
+REFERENCE_YEAR: int = 2023
+
+# Target output directory for the modeled Gold tables (SHIP-01 / Power BI import).
+GOLD_DIR: Path = PROJECT_ROOT / "data" / "gold"
+
+# The five star-schema Gold tables, in build/export order.
+GOLD_TABLES: list[str] = ["dim_division", "fact_vehicle", "fact_ferry", "dim_date", "dim_time"]
+
+# Expected Gold row counts — fail-fast assertion targets (parallel to EXPECTED_ROWS).
+# Consumed by model.py's fail-fast loop and test_dimensions.py (Plan 02).
+GOLD_EXPECTED_ROWS: dict[str, int] = {
+    "dim_division": 21,
+    "fact_vehicle": 4614,
+    "fact_ferry": 272529,
+    "dim_date": 4383,
+    "dim_time": 96,
+}
