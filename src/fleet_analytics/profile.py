@@ -26,6 +26,20 @@ from typing import Any
 import duckdb
 
 
+def _as_exact_number(value: Any) -> Any:
+    """Narrow a numeric to ``int`` only when it is integral, else keep the float.
+
+    DuckDB ``median()`` returns a float. Blindly calling ``int()`` would silently
+    truncate a genuinely non-integral median (e.g. 12.5 -> 12) and the DQ report
+    would transcribe a wrong "authoritative" figure. Preserving the float instead
+    makes any non-integral median visible rather than masked.
+    """
+    if value is None:
+        return None
+    as_float = float(value)
+    return int(as_float) if as_float.is_integer() else as_float
+
+
 def _summarize(con: duckdb.DuckDBPyConnection, table: str) -> list[dict[str, Any]]:
     """Return DuckDB ``SUMMARIZE`` for a table as a list of row dicts.
 
@@ -106,9 +120,9 @@ def profile_facts(con: duckdb.DuckDBPyConnection) -> dict[str, Any]:
         "availability_null_pct": round(avail_null / row_counts["bronze_availability"], 4),
         "availability_min": avail_min,
         "availability_max": avail_max,
-        "ferry_sales_median": int(ferry_sales_median),
+        "ferry_sales_median": _as_exact_number(ferry_sales_median),
         "ferry_sales_max": ferry_sales_max,
-        "ferry_redemption_median": int(ferry_redemption_median),
+        "ferry_redemption_median": _as_exact_number(ferry_redemption_median),
         "ferry_redemption_max": ferry_redemption_max,
         "underutilized_count": underutilized_count,
         "underutilized_total": underutilized_total,

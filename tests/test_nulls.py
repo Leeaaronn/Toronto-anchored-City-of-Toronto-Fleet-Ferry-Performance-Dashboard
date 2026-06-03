@@ -10,6 +10,10 @@ NOT assert zero_ct == 0. The guard is that NULLs were not converted to 0 — whi
 holds structurally because AVAILABILITY_YTD is typed DOUBLE and never COALESCE'd.
 """
 
+import duckdb
+
+from fleet_analytics import config
+
 
 def _counts(con):
     return con.execute(
@@ -34,14 +38,57 @@ def test_nonnull_count(con) -> None:
     assert non_null == 4405
 
 
-def test_no_null_became_zero(con) -> None:
-    """Guard against any accidental fill that would inflate non_null toward 4,614.
+def test_count_reconciliation(con) -> None:
+    """Counts reconcile exactly: null + non_null == total == 4,614.
 
-    A COALESCE/fillna would push non_null from 4,405 up to 4,614. We assert the
-    split is exact and reconciles: null + non_null == total == 4,614.
+    A full COALESCE/fillna would push non_null from 4,405 toward 4,614; this
+    reconciliation catches that coarse failure mode.
     """
     total, non_null, null_ct = _counts(con)
     assert total == 4614
     assert non_null == 4405
     assert null_ct == 209
     assert null_ct + non_null == total
+
+
+def test_no_null_became_zero(con) -> None:
+    """Value-level guard against the RAW CSV — blanks stay NULL, zeros are intact.
+
+    Counts alone can be fooled by an offsetting edit. Here we re-read the raw
+    availability CSV with AVAILABILITY_YTD forced to VARCHAR (so original textual
+    cells are visible) and prove the Bronze table preserved them cell-for-cell:
+      - every blank raw cell is NULL in Bronze (no blank -> 0 and no blank -> value fill)
+      - the count of literal-0 raw cells equals Bronze's 0.0 count (no NULL coerced
+        to 0, and no genuine 0 dropped) — the 13 legitimate zeros must survive.
+    """
+    raw = duckdb.connect(":memory:")
+    try:
+        raw.execute(
+            "CREATE TABLE raw AS SELECT * FROM read_csv("
+            "?, header=true, auto_detect=true, types={'AVAILABILITY_YTD': 'VARCHAR'})",
+            [config.csv_path(config.AVAIL_CSV)],
+        )
+        raw_blank = raw.execute(
+            "SELECT COUNT(*) FROM raw "
+            "WHERE AVAILABILITY_YTD IS NULL OR TRIM(AVAILABILITY_YTD) = ''"
+        ).fetchone()[0]
+        raw_zero = raw.execute(
+            "SELECT COUNT(*) FROM raw WHERE TRY_CAST(AVAILABILITY_YTD AS DOUBLE) = 0.0"
+        ).fetchone()[0]
+    finally:
+        raw.close()
+
+    bronze_null = con.execute(
+        "SELECT COUNT(*) - COUNT(AVAILABILITY_YTD) FROM bronze_availability"
+    ).fetchone()[0]
+    bronze_zero = con.execute(
+        "SELECT COUNT(*) FILTER (WHERE AVAILABILITY_YTD = 0.0) FROM bronze_availability"
+    ).fetchone()[0]
+
+    assert raw_blank == bronze_null == 209, (
+        f"blank raw cells ({raw_blank}) != Bronze NULLs ({bronze_null}) — a fill crept in"
+    )
+    assert raw_zero == bronze_zero, (
+        f"raw literal-0 cells ({raw_zero}) != Bronze 0.0 values ({bronze_zero}) "
+        "— a NULL may have been coerced to 0, or a genuine 0 dropped"
+    )

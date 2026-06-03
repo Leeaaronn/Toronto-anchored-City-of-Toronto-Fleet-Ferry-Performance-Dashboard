@@ -64,10 +64,20 @@ def test_year_range(con):
     assert (facts["year_min"], facts["year_max"]) == (1982, 2026)
 
 
-def test_dq_report_artifact_exists():
-    """The DATA-02 DQ report deliverable must exist and carry the 5.8% insight."""
+def test_dq_report_artifact_exists(con):
+    """The DATA-02 DQ report must exist and carry the *derived* underutilization figure.
+
+    The expected percentage is computed from ``profile_facts`` (not hardcoded) so the
+    test and the deliverable can never silently disagree: if the underlying rate ever
+    changes, this asserts the report was regenerated to match.
+    """
+    facts = profile_facts(con)
+    pct = round(facts["underutilized_rate"] * 100, 1)  # 120 / 2,086 -> 5.8
     root = Path(__file__).resolve().parents[1]
     report = root / "deliverables" / "dq_report.md"
     assert report.exists(), "deliverables/dq_report.md is missing"
     text = report.read_text(encoding="utf-8")
-    assert "5.8%" in text
+    assert f"{pct}%" in text, (
+        f"DQ report is missing the derived underutilization figure {pct}% "
+        "— regenerate the deliverable from profile_facts"
+    )
