@@ -114,6 +114,78 @@ provenance attached so it remains defensible.
 
 ---
 
+---
+
+# Phase-2 Addendum — Model & Join-Integrity DQ Findings
+
+**Scope:** Gold star-schema build (the availability ⋈ utilization join and the conformed
+`dim_division`). These findings emerge only once the two vehicle datasets are normalized to a
+canonical integer key and joined — they extend, and do not revise, the Phase-1 baseline above.
+**Method:** computed deterministically in `src/fleet_analytics/model.py` and locked by
+`tests/test_join_integrity.py` / `tests/test_dimensions.py`. Every count below is a passing
+test assertion, not a narrative estimate.
+
+## 7. The 6 Unmatched Utilization Rows (D-03)
+
+| Measure | Value |
+|---------|-------|
+| Utilization rows total | **2,086** |
+| Matched to availability (canonical integer `UNIT_NO`) | **2,080** |
+| **Unmatched (no availability row)** | **6** |
+| Reconciliation | **2,080 + 6 = 2,086** ✓ |
+
+The light-duty utilization file carries **6 `UNIT_NO` values with no corresponding availability
+record**. They are surfaced by an **anti-join** (`bronze_utilization LEFT JOIN bronze_availability …
+WHERE availability IS NULL`), materialized as the `dq_unmatched_utilization` table, and guarded by
+`test_unmatched_6` (asserts the count is exactly 6).
+
+These 6 rows **fall outside `fact_vehicle` by design.** `fact_vehicle` is **availability-anchored**
+(all 4,614 availability rows, LEFT JOIN to utilization), so a utilization record with no availability
+match has no row to attach to — that is expected, not an error. The anti-join is the deliberate
+capture point so the discrepancy is documented and testable rather than silently dropped. The join
+itself does **not** fan out: `fact_vehicle` stays exactly **4,614** rows.
+
+## 8. The 44 Alphanumeric Availability `UNIT_NO` Values
+
+| Measure | Value |
+|---------|-------|
+| Availability rows total | **4,614** |
+| Availability units with a non-integer (alphanumeric) `UNIT_NO` | **44** (e.g. `296011A`, `CLAW10`) |
+| Their canonical integer join key (`unit_key_int`) | **NULL — by design** |
+
+`UNIT_NO` is normalized to a canonical integer key via **`TRY_CAST(UNIT_NO AS BIGINT)`** on both
+datasets. **44 availability units carry alphanumeric IDs** (e.g. `296011A`, `CLAW10`) that are not
+valid integers; `TRY_CAST` yields **NULL** for them rather than raising — so the rows **survive in
+`fact_vehicle`** with a NULL `unit_key_int` and simply **never match** the integer-keyed utilization
+side. This is the deliberate, defensible behavior: these are **real fleet units** and must remain in
+the full-fleet availability denominator and the availability-by-asset-class measures; they are merely
+**excluded from the integer join key** (utilization is light-duty only, so a non-light-duty
+alphanumeric unit would have no utilization match regardless). No spelling is "fixed" and no row is
+dropped — the alphanumeric IDs are preserved verbatim.
+
+## 9. Division-Name Reconciliation (D-06) — a Clean Result
+
+| Source role | Distinct normalized names |
+|-------------|---------------------------|
+| `OWNER_DIVISION` (availability — *owns* the vehicle) | **21** |
+| `REF_USING_DIV` (utilization — *uses* the vehicle) | **20** |
+| Conformed `dim_division` (distinct **union**, normalized) | **21** |
+| Unreconciled names (in one source, absent from the other after normalization) | **0** |
+
+`dim_division` is built as the **distinct union of normalized** (`trim` + collapse internal
+whitespace + uppercase) division names from both sources — spellings are **not** force-mapped. The
+union is **exactly 21 = the owner count**, because all **20** using-division names are a **normalized
+subset** of the **21** owner names. The result is therefore **clean: zero unreconciled names** — every
+using division also appears as an owner division. `dim_division` row count == **21** is locked by
+`test_dimensions.py`.
+
+Note the **source truncations are preserved verbatim, not "fixed."** `OWNER_DIVISION` arrives
+truncated in the source CSV — e.g. **`ENVIRONMENT, CLIMATE & FORESTR`** (the trailing `Y` is cut off
+upstream). We keep it as-is and document the truncation rather than guessing the full name; the
+embedded comma parses correctly because Bronze ingest uses RFC-4180 CSV quoting (no hand-splitting).
+
+---
+
 ## Sources & Licence
 
 - City of Toronto **Open Data** portal — the three source datasets.
@@ -121,4 +193,5 @@ provenance attached so it remains defensible.
 - Auditor General **Operational Review 2019.AU2.2 / 2019.AU2.3** (the ~14% underutilization benchmark and downtime themes).
 - Licence: **Open Government Licence – Toronto**.
 
-*All computed figures reproducible via `profile_facts(con)`; locked by `tests/test_profile.py`.*
+*Phase-1 computed figures reproducible via `profile_facts(con)`; locked by `tests/test_profile.py`.
+Phase-2 join/reconciliation figures locked by `tests/test_join_integrity.py` and `tests/test_dimensions.py`.*
