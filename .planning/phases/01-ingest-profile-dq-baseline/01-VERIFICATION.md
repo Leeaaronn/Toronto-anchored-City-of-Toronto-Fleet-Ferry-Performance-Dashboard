@@ -1,7 +1,8 @@
 ---
 phase: 01-ingest-profile-dq-baseline
 verified: 2026-06-02T20:00:00Z
-status: human_needed
+status: passed
+human_signoff: "approved 2026-06-03 — both DQ-report framing items (§5 5.8%-vs-14%, §6/A1 pull-date caveat) confirmed correct by user"
 score: 9/9
 overrides_applied: 0
 re_verification: false
