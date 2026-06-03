@@ -93,7 +93,7 @@ def test_fleet_age(gold, year: int, expected_age: int) -> None:
 )
 def test_season(gold, month_no: int, expected_season: str) -> None:
     ts = f"2021-{month_no:02d}-15 12:00:00"
-    got = gold.execute(_SEASON_SQL, [ts, ts, ts]).fetchone()[0]
+    got = gold.execute(_SEASON_SQL, [ts] * _SEASON_SQL.count("?")).fetchone()[0]
     assert got == expected_season
 
 
@@ -106,7 +106,7 @@ def test_season(gold, month_no: int, expected_season: str) -> None:
 )
 def test_season_daypart(gold, hour_no: int, expected_daypart: str) -> None:
     ts = f"2021-06-15 {hour_no:02d}:30:00"
-    got = gold.execute(_DAYPART_SQL, [ts, ts, ts, ts]).fetchone()[0]
+    got = gold.execute(_DAYPART_SQL, [ts] * _DAYPART_SQL.count("?")).fetchone()[0]
     assert got == expected_daypart
 
 
