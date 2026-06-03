@@ -14,10 +14,14 @@ Data-fidelity rules encoded here (locked decisions):
 
 from __future__ import annotations
 
+import os
 from pathlib import Path
 
 # Repo root = three levels up from this file (src/fleet_analytics/config.py).
 PROJECT_ROOT: Path = Path(__file__).resolve().parents[2]
+
+# Source CSVs live under .planning/data/ (override with FLEET_DATA_DIR if needed).
+DATA_DIR: Path = Path(os.environ.get("FLEET_DATA_DIR", PROJECT_ROOT / ".planning" / "data"))
 
 # --- Exact source filenames (VERIFIED 2026-06-02) ---------------------------
 # NOTE the trailing space before ".csv" on the availability file. Do not "fix" it.
@@ -27,8 +31,8 @@ FERRY_CSV: str = "Toronto Island Ferry Ticket Counts.csv"
 
 
 def csv_path(filename: str) -> str:
-    """Absolute path to a source CSV at the repo root, as a string for DuckDB."""
-    return str(PROJECT_ROOT / filename)
+    """Absolute path to a source CSV in the data directory, as a string for DuckDB."""
+    return str(DATA_DIR / filename)
 
 
 # --- Expected data-row counts (excl. header) — fail-fast assertion targets ---
