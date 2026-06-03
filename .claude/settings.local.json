@@ -4,7 +4,24 @@
       "WebFetch(domain:raw.githubusercontent.com)",
       "PowerShell(npx -y get-shit-done-cc@latest --claude --global)",
       "WebSearch",
-      "WebFetch(domain:github.com)"
+      "WebFetch(domain:github.com)",
+      "Skill(gsd-progress)",
+      "Bash(gsd-sdk query *)",
+      "Skill(gsd-code-review)",
+      "Bash(uv run *)",
+      "Bash(git add *)",
+      "Bash(git commit *)",
+      "Bash(sed -n '1,15p' deliverables/dq_report.md)",
+      "Bash(awk '/^## 5|^### 5|## .*5\\\\./{f=1} f{print} /^## 7|^### 7/{f=0}' deliverables/dq_report.md)",
+      "Bash(uv pip *)",
+      "Bash(uv sync *)",
+      "Bash(git check-ignore *)",
+      "Bash(git rm *)",
+      "Bash(cd \"C:\\\\Users\\\\leeaa\\\\Toronto-anchored-City-of-Toronto-Fleet-Ferry-Performance-Dashboard\")",
+      "Bash(grep -rn \"D-0[0-9]\\\\|D-1[0-9]\" .planning/phases/02-transform-model-join-integrity/*-PLAN.md)",
+      "Bash(node -e \"let s='';process.stdin.on\\('data',d=>s+=d\\).on\\('end',\\(\\)=>{try{const o=JSON.parse\\(s\\);const d=o.data||o;console.log\\('passed:',d.passed,'| covered:',d.covered+'/'+d.total\\);if\\(d.uncovered&&d.uncovered.length\\)console.log\\('uncovered:',d.uncovered.map\\(x=>x.id\\).join\\(', '\\)\\);}catch\\(e\\){console.log\\(s\\)}}\\)\")",
+      "Bash(node __TRACKED_VAR__/.claude/get-shit-done/bin/gsd-tools.cjs gap-analysis --phase-dir .planning/phases/02-transform-model-join-integrity)",
+      "Skill(gsd-execute-phase)"
     ]
   }
 }

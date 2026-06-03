@@ -107,3 +107,4 @@ Python + DuckDB for ETL (matches your portfolio), pandas where convenient, pytes
 ## 10. Suggested `/gsd-new-project` kickoff prompt
 
 > I'm building a fleet analytics project for a City of Toronto business-analyst assignment. Claude Code owns the data engineering layer only; the Power BI report is authored manually by me on top of the modeled output — do **not** attempt to generate a .pbix. Read the attached brief (`Fleet_Services_GSD_Project_Brief.md`) for context: three datasets (vehicle availability, light-duty utilization, ferry ticket counts), real schemas, the KPI set, the star-schema model, and a 6-phase roadmap. Ask me about: null-handling strategy, whether to scaffold PBIP/TMDL, and how much of the two narrative deliverables you should draft vs. outline. Then produce requirements + a roadmap that follows the phases in the brief.
+2
