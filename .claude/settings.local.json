@@ -21,7 +21,23 @@
       "Bash(grep -rn \"D-0[0-9]\\\\|D-1[0-9]\" .planning/phases/02-transform-model-join-integrity/*-PLAN.md)",
       "Bash(node -e \"let s='';process.stdin.on\\('data',d=>s+=d\\).on\\('end',\\(\\)=>{try{const o=JSON.parse\\(s\\);const d=o.data||o;console.log\\('passed:',d.passed,'| covered:',d.covered+'/'+d.total\\);if\\(d.uncovered&&d.uncovered.length\\)console.log\\('uncovered:',d.uncovered.map\\(x=>x.id\\).join\\(', '\\)\\);}catch\\(e\\){console.log\\(s\\)}}\\)\")",
       "Bash(node __TRACKED_VAR__/.claude/get-shit-done/bin/gsd-tools.cjs gap-analysis --phase-dir .planning/phases/02-transform-model-join-integrity)",
-      "Skill(gsd-execute-phase)"
+      "Skill(gsd-execute-phase)",
+      "Bash(PYTHONPATH=src uv run python -c \"from fleet_analytics import config as c; assert c.ASSET_CLASS_TARGETS=={'Light':95,'Medium':92,'Heavy':85,'Off-Road':88,'Other':90}; assert set\\(c.UNIT_TYPE_TO_CLASS\\)=={'LIGHT DUTY','MEDIUM DUTY','HEAVY DUTY','OFF-ROAD','OTHER'}; assert len\\(c.KPI_TABLE_CSVS\\)==7; assert c.FERRY_COMPLETE_YEARS==\\(2016,2025\\); print\\('config OK'\\)\")",
+      "Bash(PYTHONPATH=src uv run python -c \"import duckdb; from fleet_analytics import kpis; con=duckdb.connect\\(\\); kpis.build_all\\(con\\); s=kpis.build_scalars\\(con\\); assert 0<=s['overall_availability_rate']<=1; assert round\\(s['overall_availability_rate'],4\\)==0.8899; print\\('kpis build OK', s['overall_availability_rate']\\)\")",
+      "Bash(PYTHONPATH=src uv run python -c ' *)",
+      "Bash(PYTHONPATH=src uv run python -m fleet_analytics.kpis)",
+      "Bash(PYTHONPATH=src uv run python -c \"import json,os; d=json.load\\(open\\('data/kpi/kpi_values.json'\\)\\); assert 0<=d['overall_availability_rate']<=1; assert d['availability_nonnull_n']==4405 and d['availability_null_n']==209; assert d['ferry_sales_max']==7229; [os.stat\\('data/kpi/'+f+'.csv'\\) for f in ['availability_by_class','availability_by_division','exception_list','underutilization_by_division','ferry_yoy','ferry_heatmap','sales_redemption_gap']]; print\\('snapshot OK'\\)\")",
+      "Bash(cp -r data/kpi /tmp/kpi_run1)",
+      "Read(//tmp/**)",
+      "Bash(rm -rf /tmp/kpi_run1)",
+      "Bash(PYTHONPATH=src uv run python -c \"import duckdb; c=duckdb.connect\\(\\); yrs=[r[0] for r in c.execute\\(\\\\\"SELECT DISTINCT year FROM read_csv_auto\\('data/kpi/ferry_yoy.csv'\\) ORDER BY year\\\\\"\\).fetchall\\(\\)]; assert yrs==list\\(range\\(2016,2026\\)\\), yrs; print\\('ferry_yoy years', yrs[0],'..',yrs[-1]\\)\")",
+      "Bash(git symbolic-ref *)",
+      "Bash(git checkout *)",
+      "Bash(git worktree *)",
+      "Bash(git branch *)",
+      "Bash(PYTHONPATH=src uv run python -c \"import inspect, tests.conftest as c; src=inspect.getsource\\(c.gold.__wrapped__ if hasattr\\(c.gold,'__wrapped__'\\) else c.gold\\); assert 'kpis' in src; print\\('fixture chain OK'\\)\")",
+      "Bash(gsd-sdk help *)",
+      "Bash(echo \"exit=$?\")"
     ]
   }
 }
