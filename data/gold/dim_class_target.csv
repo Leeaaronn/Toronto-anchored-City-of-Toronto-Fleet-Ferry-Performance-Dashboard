@@ -1,0 +1,6 @@
+unit_type,class_label,target
+LIGHT DUTY,Light,95
+MEDIUM DUTY,Medium,92
+HEAVY DUTY,Heavy,85
+OFF-ROAD,Off-Road,88
+OTHER,Other,90

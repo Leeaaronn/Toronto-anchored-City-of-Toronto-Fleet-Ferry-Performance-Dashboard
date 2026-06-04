@@ -29,10 +29,16 @@ def gold(con: duckdb.DuckDBPyConnection) -> duckdb.DuckDBPyConnection:
     mirroring how Plan 02 of Phase 2 added the ``model.build_all(con)`` line — so the
     KPI layer (every Domain A/B KPI table + the compute-time fail-fast guards) is
     built once per session for ``tests/test_kpis.py`` to assert against.
+
+    Phase 4 Plan 01 extends this same chain by adding a single
+    ``class_target.build_class_target(con)`` line after ``kpis.build_all(con)`` — same
+    precedent — so ``tests/test_class_target.py`` can assert against the in-DB
+    ``dim_class_target`` reference dimension.
     """
-    from fleet_analytics import kpis, model, transform
+    from fleet_analytics import class_target, kpis, model, transform
 
     transform.build_all(con)
     model.build_all(con)
     kpis.build_all(con)
+    class_target.build_class_target(con)
     return con
