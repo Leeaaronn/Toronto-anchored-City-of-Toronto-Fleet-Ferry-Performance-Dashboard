@@ -24,7 +24,7 @@ Requirements for initial release. Each maps to roadmap phases.
 ### KPIs & Measures Spec
 
 - [ ] **KPI-01**: All Domain A (fleet maintenance) and Domain B (ferry) KPIs are computed authoritatively in SQL/Python and cross-checked against audit benchmarks (overall + by-asset-class availability vs targets, exception list, underutilization rate, disposal-candidate cross-measure, ferry YoY/seasonality/heatmap/sales-redemption gap)
-- [ ] **KPI-02**: A KPI definitions doc (formulas) and a DAX-ready measures spec pair each KPI with copy-paste DAX and its SQL validation value, including the pooled-mean (not average-of-averages) grand-total guard
+- [x] **KPI-02**: A KPI definitions doc (formulas) and a DAX-ready measures spec pair each KPI with copy-paste DAX and its SQL validation value, including the pooled-mean (not average-of-averages) grand-total guard
 
 ### Power BI Report Spec
 
@@ -76,7 +76,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | MODEL-03 | Phase 2 | Complete |
 | MODEL-04 | Phase 2 | Complete |
 | KPI-01 | Phase 3 | Pending |
-| KPI-02 | Phase 3 | Pending |
+| KPI-02 | Phase 3 | Complete |
 | REPORT-01 | Phase 4 | Pending |
 | NARR-01 | Phase 5 | Pending |
 | NARR-02 | Phase 5 | Pending |
