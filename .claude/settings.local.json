@@ -37,7 +37,19 @@
       "Bash(git branch *)",
       "Bash(PYTHONPATH=src uv run python -c \"import inspect, tests.conftest as c; src=inspect.getsource\\(c.gold.__wrapped__ if hasattr\\(c.gold,'__wrapped__'\\) else c.gold\\); assert 'kpis' in src; print\\('fixture chain OK'\\)\")",
       "Bash(gsd-sdk help *)",
-      "Bash(echo \"exit=$?\")"
+      "Bash(echo \"exit=$?\")",
+      "Skill(gsd-discuss-phase)",
+      "Skill(gsd-plan-phase)",
+      "Bash(sed -n '100,160p' src/fleet_analytics/config.py)",
+      "Bash(PYTHONPATH=src uv run python -c \"import duckdb; print\\(duckdb.sql\\(\\\\\"select distinct CATEGORY_CLASS from 'data/gold/fact_vehicle.parquet' order by 1\\\\\"\\).fetchall\\(\\)\\)\")",
+      "Bash(echo \"CTXWIN=$\\(gsd-sdk query config-get context_window 2>/dev/null || echo 200000\\)\")",
+      "Bash(echo \"MVP=$\\(gsd-sdk query phase.mvp-mode '04-power-bi-report-specification' --pick active 2>/dev/null || echo false\\)\")",
+      "Bash(echo \"SEC=$\\(gsd-sdk query config-get workflow.security_enforcement --raw 2>/dev/null || echo true\\)\")",
+      "Bash(echo \"UIPHASE=$\\(gsd-sdk query config-get workflow.ui_phase 2>/dev/null || echo true\\)\")",
+      "Bash(node __TRACKED_VAR__/.claude/get-shit-done/bin/gsd-tools.cjs --help)",
+      "Bash(grep -n 'must_haves\\\\|truths\\\\|^## \\\\|^### ' .planning/phases/04-power-bi-report-specification/__TRACKED_VAR__-PLAN.md)",
+      "Bash(node -e \"let s='';process.stdin.on\\('data',d=>s+=d\\).on\\('end',\\(\\)=>{const o=JSON.parse\\(s\\);console.log\\('passed:',o.passed,'| covered:',o.covered,'/',o.total,'| uncovered:',JSON.stringify\\(o.uncovered.map\\(u=>u.id\\)\\)\\)}\\)\")",
+      "Bash(node __TRACKED_VAR__/.claude/get-shit-done/bin/gsd-tools.cjs gap-analysis --phase-dir .planning/phases/04-power-bi-report-specification)"
     ]
   }
 }
