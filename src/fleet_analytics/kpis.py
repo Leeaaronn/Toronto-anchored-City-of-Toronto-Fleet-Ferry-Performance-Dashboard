@@ -52,8 +52,24 @@ def load_gold_views(con: duckdb.DuckDBPyConnection) -> None:
 
     Uses the export.py ``(config.GOLD_DIR / t).as_posix()`` path idiom. Only the
     internal ``config.GOLD_TABLES`` names are interpolated (security note).
+
+    Idempotent against an already-populated connection: if a Gold name already
+    exists on ``con`` as a relation (e.g. the in-memory Tables built by
+    ``model.build_all`` when this runs through the ``gold`` pytest fixture), it is
+    left untouched — re-creating it as a Parquet-backed View would raise
+    ``Catalog Error: Existing object ... is of type Table, trying to replace with
+    type View``. Only the missing names (the standalone ``main()`` path over a fresh
+    ``:memory:`` connection) are loaded from ``data/gold/*.parquet``.
     """
+    existing = {
+        row[0]
+        for row in con.execute(
+            "SELECT table_name FROM information_schema.tables"
+        ).fetchall()
+    }
     for t in config.GOLD_TABLES:
+        if t in existing:
+            continue
         p = (config.GOLD_DIR / t).as_posix()
         con.execute(
             f"CREATE OR REPLACE VIEW {t} AS SELECT * FROM read_parquet('{p}.parquet')"

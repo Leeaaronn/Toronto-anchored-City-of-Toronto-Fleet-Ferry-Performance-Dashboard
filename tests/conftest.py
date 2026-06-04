@@ -25,11 +25,14 @@ def gold(con: duckdb.DuckDBPyConnection) -> duckdb.DuckDBPyConnection:
 
     Depends on ``con`` so Bronze is ingested only once per session, then the
     transform builders run on the same in-memory connection. Plan 02 extends this
-    fixture by adding a single ``model.build_all(con)`` line after the transform
-    call — the import is already in place so that is the only change needed.
+    fixture by adding a single ``kpis.build_all(con)`` line after the model call —
+    mirroring how Plan 02 of Phase 2 added the ``model.build_all(con)`` line — so the
+    KPI layer (every Domain A/B KPI table + the compute-time fail-fast guards) is
+    built once per session for ``tests/test_kpis.py`` to assert against.
     """
-    from fleet_analytics import model, transform
+    from fleet_analytics import kpis, model, transform
 
     transform.build_all(con)
     model.build_all(con)
+    kpis.build_all(con)
     return con
