@@ -15,7 +15,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 1: Ingest, Profile & DQ Baseline** - Load 3 CSVs into validated Bronze tables; produce data dictionary, DQ report, and Pandera regression guards (completed 2026-06-02)
 - [x] **Phase 2: Transform, Model & Join Integrity** - Build the Gold star schema as Parquet with the availability⋈utilization join and split date/time dimensions, all tested (completed 2026-06-03)
 - [x] **Phase 3: KPI Layer & Measures Spec** - Compute all Domain A/B KPIs in SQL against audit benchmarks; produce KPI definitions doc + DAX-ready measures spec (completed 2026-06-04)
-- [ ] **Phase 4: Power BI Report Specification** - Page-by-page report spec with exact Gold names, relationships, slicers, theme, DAX, and PDF layout
+- [x] **Phase 4: Power BI Report Specification** - Page-by-page report spec with exact Gold names, relationships, slicers, theme, DAX, and PDF layout (completed 2026-06-04)
 - [ ] **Phase 5: Narrative Deliverables** - Full drafts of the requirements-gathering approach and stakeholder-engagement strategy narratives
 - [ ] **Phase 6: Ship** - README with citations, one-command reproducible pipeline, `data/gold/` Parquet files, repo cleanup, all three deliverables confirmed
 
@@ -75,7 +75,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 **Plans**: 3 plans
   - [x] 04-01-PLAN.md — committed dim_class_target reference dimension (UNIT_TYPE bridge) + COPY export + pytest guard
   - [x] 04-02-PLAN.md — report_spec.md scaffold: column-reference reconciliation, model/relationships, civic theme JSON, slicer plan, Fleet Maintenance page
-  - [ ] 04-03-PLAN.md — report_spec.md: Ferry Operations page, AG-themes-first Summary/Insights page, PDF-export layout, sources/licence
+  - [x] 04-03-PLAN.md — report_spec.md: Ferry Operations page, AG-themes-first Summary/Insights page, PDF-export layout, sources/licence
 **UI hint**: yes
 
 ### Phase 5: Narrative Deliverables
@@ -110,6 +110,6 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6
 | 1. Ingest, Profile & DQ Baseline | 3/3 | Complete   | 2026-06-02 |
 | 2. Transform, Model & Join Integrity | 3/3 | Complete   | 2026-06-03 |
 | 3. KPI Layer & Measures Spec | 3/3 | Complete   | 2026-06-04 |
-| 4. Power BI Report Specification | 2/3 | In Progress|  |
+| 4. Power BI Report Specification | 3/3 | Complete   | 2026-06-04 |
 | 5. Narrative Deliverables | 0/TBD | Not started | - |
 | 6. Ship | 0/TBD | Not started | - |
