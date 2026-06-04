@@ -122,7 +122,7 @@ UNIT_TYPE_TO_CLASS: dict[str, str] = {
 # in git — every dashboard number must reproduce a value written here (D-05).
 KPI_DIR: Path = PROJECT_ROOT / "data" / "kpi"
 
-# The seven table-valued KPI base names -> one CSV each under KPI_DIR (parallel
+# The eight table-valued KPI base names -> one CSV each under KPI_DIR (parallel
 # to GOLD_TABLES). Drives the config-driven snapshot writer in kpis.py (D-05).
 KPI_TABLE_CSVS: list[str] = [
     "availability_by_class",
@@ -130,6 +130,7 @@ KPI_TABLE_CSVS: list[str] = [
     "exception_list",
     "underutilization_by_division",
     "ferry_yoy",
+    "ferry_seasonality",
     "ferry_heatmap",
     "sales_redemption_gap",
 ]
