@@ -72,7 +72,10 @@ Decimal phases appear between their surrounding integers in numeric order.
   2. The spec defines single-direction dim→fact relationships (no fleet↔ferry relationship) and a "Mark as Date Table" instruction for `dim_date`.
   3. Every DAX measure in the spec has a matching SQL validation value carried from Phase 3, with `DIVIDE` mandated for ratios and the canonical pooled-mean DAX used for grand totals.
   4. The spec includes a slicer plan, Power BI theme, visual types per page, and a PDF-export layout.
-**Plans**: TBD
+**Plans**: 3 plans
+  - [ ] 04-01-PLAN.md — committed dim_class_target reference dimension (UNIT_TYPE bridge) + COPY export + pytest guard
+  - [ ] 04-02-PLAN.md — report_spec.md scaffold: column-reference reconciliation, model/relationships, civic theme JSON, slicer plan, Fleet Maintenance page
+  - [ ] 04-03-PLAN.md — report_spec.md: Ferry Operations page, AG-themes-first Summary/Insights page, PDF-export layout, sources/licence
 **UI hint**: yes
 
 ### Phase 5: Narrative Deliverables
@@ -107,6 +110,6 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6
 | 1. Ingest, Profile & DQ Baseline | 3/3 | Complete   | 2026-06-02 |
 | 2. Transform, Model & Join Integrity | 3/3 | Complete   | 2026-06-03 |
 | 3. KPI Layer & Measures Spec | 3/3 | Complete   | 2026-06-04 |
-| 4. Power BI Report Specification | 0/TBD | Not started | - |
+| 4. Power BI Report Specification | 0/3 | Not started | - |
 | 5. Narrative Deliverables | 0/TBD | Not started | - |
 | 6. Ship | 0/TBD | Not started | - |
