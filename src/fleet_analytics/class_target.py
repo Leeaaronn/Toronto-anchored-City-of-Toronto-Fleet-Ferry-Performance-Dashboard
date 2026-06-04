@@ -7,7 +7,7 @@ secondary) and the ``kpis.py`` ``_class_targets_relation()`` "config dict -> bou
 VALUES relation" idiom — every value is ``?``-bound from ``config``, never inlined.
 
 GRAIN / KEY DECISION (resolves the 04-PATTERNS.md high-priority discrepancy, D-03/D-04):
-``dim_class_target`` is a **10-row bridge keyed on ``unit_type``**, NOT a 5-row
+``dim_class_target`` is a **5-row bridge keyed on ``unit_type``**, NOT a
 ``category_class`` dim. Rationale: ``fact_vehicle.CATEGORY_CLASS`` holds **19 granular
 codes** (CLASS1-8, APPARATUS, ATTACHMENT, BOAT, CONSTRUCT, FACILITY, GROUND, LIFTING,
 ROADMAIN, TRAILER, TRAM, WINTERMAIN), while the **5 audit labels** (Light / Medium /
@@ -42,7 +42,7 @@ from fleet_analytics import config
 
 
 def build_class_target(con: duckdb.DuckDBPyConnection) -> None:
-    """Register ``dim_class_target`` on ``con`` from config (10-row UNIT_TYPE bridge).
+    """Register ``dim_class_target`` on ``con`` from config (5-row UNIT_TYPE bridge).
 
     Reuses the canonical ``_class_targets_relation()`` shape from kpis.py: a
     ``(VALUES (?, ?, ?), ...) AS ct(unit_type, class_label, target)`` fragment with
