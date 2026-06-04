@@ -108,7 +108,7 @@ def build_availability_by_class(con: duckdb.DuckDBPyConnection) -> None:
         FROM fact_vehicle fv
         JOIN {relation} ON fv.UNIT_TYPE = ct.unit_type
         GROUP BY ct.class_label, ct.target
-        ORDER BY gap_to_target
+        ORDER BY gap_to_target, asset_class
         """,
         params,
     )
@@ -131,7 +131,7 @@ def build_availability_by_division(con: duckdb.DuckDBPyConnection) -> None:
         FROM fact_vehicle fv
         JOIN dim_division d ON fv.owner_division_key = d.division_key
         GROUP BY d.division_name
-        ORDER BY availability_rate
+        ORDER BY availability_rate, owner_division
         """
     )
 
@@ -161,7 +161,7 @@ def build_exception_list(con: duckdb.DuckDBPyConnection) -> None:
         FROM fact_vehicle fv
         JOIN {relation} ON fv.UNIT_TYPE = ct.unit_type
         WHERE fv.AVAILABILITY_YTD < ct.target / 100.0
-        ORDER BY gap_to_target
+        ORDER BY gap_to_target, unit_no
         """,
         params,
     )
@@ -189,7 +189,7 @@ def build_underutilization_by_division(con: duckdb.DuckDBPyConnection) -> None:
         JOIN dim_division d ON fv.using_division_key = d.division_key
         WHERE fv.Utilization IS NOT NULL
         GROUP BY d.division_name
-        ORDER BY underutilization_rate DESC
+        ORDER BY underutilization_rate DESC, using_division
         """
     )
 
@@ -248,7 +248,7 @@ def build_ferry_seasonality(con: duckdb.DuckDBPyConnection) -> None:
                COUNT(*)                AS slots_n
         FROM fact_ferry
         GROUP BY month(Timestamp), season
-        ORDER BY month
+        ORDER BY month, season
         """
     )
 
@@ -323,15 +323,20 @@ def build_scalars(con: duckdb.DuckDBPyConnection) -> dict[str, object]:
     avail_null = avail_total - avail_nonnull
 
     # Mean-of-class-means: the WRONG grand total, kept to prove pooled != average-of-
-    # averages (the canonical pooled-mean guard).
-    mean_of_class_means = q(
-        """
-        SELECT AVG(class_rate) FROM (
-            SELECT AVG(AVAILABILITY_YTD) AS class_rate
-            FROM fact_vehicle GROUP BY UNIT_TYPE
-        )
-        """
-    ).fetchone()[0]
+    # averages (the canonical pooled-mean guard). Rounded to 10 dp for a deterministic
+    # snapshot — DuckDB's nested AVG can flip the last float bit across runs; 10 dp is
+    # far tighter than the ~0.011 pooled-vs-class gap the guard relies on.
+    mean_of_class_means = round(
+        q(
+            """
+            SELECT AVG(class_rate) FROM (
+                SELECT AVG(AVAILABILITY_YTD) AS class_rate
+                FROM fact_vehicle GROUP BY UNIT_TYPE
+            )
+            """
+        ).fetchone()[0],
+        10,
+    )
 
     overall_underutilization_rate = q(
         "SELECT AVG(CASE WHEN Utilization = 'Underutilized' THEN 1.0 ELSE 0.0 END) "
