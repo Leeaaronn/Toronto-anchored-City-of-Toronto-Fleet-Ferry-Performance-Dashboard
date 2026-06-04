@@ -41,4 +41,4 @@ def gold(con: duckdb.DuckDBPyConnection) -> duckdb.DuckDBPyConnection:
     model.build_all(con)
     kpis.build_all(con)
     class_target.build_class_target(con)
-    return con
+    yield con
