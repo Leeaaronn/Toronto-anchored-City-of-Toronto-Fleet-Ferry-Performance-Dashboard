@@ -149,3 +149,53 @@ This keeps a single conformed `dim_division` (one `division_name` slicer) rather
 **Ferry-page interaction note.** The two page-local slicers — `fact_ferry[season]` and `fact_ferry[daypart]` (D-06) — refine this page only and are **not** synced to Pages 1/3. The synced Division/Asset-Class slicers have **no effect** on ferry visuals (no fleet↔ferry relationship); only the synced **Year** slicer (`dim_date[year]`) cross-filters the ferry trend via the R1 date relationship.
 
 ---
+
+## Page 3 — Summary / Insights
+
+**AG-themes-first (D-02).** This is the executive landing page. It leads with the **two Auditor General themes** and keeps the cross-dataset disposal screen visually prominent as the differentiator. **No new DAX is authored here** — every tile **reuses** a measure already defined on Page 1 (Fleet Maintenance) or Page 2 (Ferry Operations); the visuals are compact summary tiles over those existing measures. Status color stays **color-locked** (red `#C62828` = below class target; green `#2E7D32` = at-or-above), signed (never `abs()`), worst-first. Read top-to-bottom in this **exact order**:
+
+| # | Theme block | Visual(s) | Reuses (measure → source page) | Lead value / read | AG / DQ note |
+|---|-------------|-----------|--------------------------------|-------------------|--------------|
+| **1** | **DOWNTIME (lead)** | Headline KPI card + a compact **gap-to-target bar** by class (worst-first) | `[Availability Rate (Pooled)]` (A1, Page 1) · `[Availability Rate by Class]` + `[Gap to Target]` (A2, Page 1) | Pooled availability **0.8899**; signed gaps Light **−0.0351** / Medium **−0.0588** / Heavy **−0.0552** below benchmark; Off-Road **+0.0082** / Other **+0.0337** clear it | **AG 2019.AU2.2.** Targets audit-cited, never recalculated. Color-lock red below / green at-or-above. 209 NULLs excluded (denom **4,405**). |
+| **2** | **UNDERUTILIZATION** | KPI card with the **5.8% vs ~14%** reconciliation callout | `[Underutilization Rate]` (A4, Page 1) | **5.8%** computed (`0.0572`) over **2,080** matched light-duty units **vs ~14%** audit baseline (Mar 2023) | **AG 2019.AU2.3.** A **period / right-sizing** insight, **not an error** — classification is pre-applied, never recomputed. Reconciliation note carried verbatim. |
+| **3** | **34-UNIT DISPOSAL SCREENING LIST** *(prominent — the differentiator)* | A **prominent screening-list table** (worst-first), larger than the surrounding tiles | `[Disposal Candidate Count]` (A5, Page 1) | **34** units that are **both** below class target **and** pre-classified `Underutilized` — the availability⋈utilization cross-dataset value-add | **Labeled "screening list for SME review, never a disposal decision."** AG 2019.AU2.2 **+** AU2.3. Provenance attached: **6 unmatched `UNIT_NO`** + 209 excluded NULLs / 4,405 denom. |
+| **4** | **FERRY DEMAND** *(last)* | Small-multiple / sparkline of the YoY trend + a peak-window callout | `[Sales by Year]` / `[Sales YoY Growth]` (B2, Page 2) · `[Sales by DoW x Hour]` (B4, Page 2) | The **2020 < 2019 COVID dip** (`−0.7067`); summer + midday peak windows drive staffing | Demand/staffing context, placed **after** the two AG themes. Reuses Page-2 measures; no new DAX. |
+
+**Why this order.** The panel reads downtime → underutilization first because those are the audit's two named themes (AU2.2 / AU2.3). The **34-unit disposal screen sits third and visually prominent** because it is the cross-dataset join most candidates miss — the differentiating value-add — framed honestly as an **SME screening list, never a disposal decision**. Ferry demand lands last as supporting operational context.
+
+---
+
+## DQ Footnotes (consolidated)
+
+These are the locked, audit-defensible **stated assumptions** surfaced as footnotes / tooltips across all three pages (full detail in the [DQ report](dq_report.md)):
+
+1. **209 excluded NULL availabilities (denominator 4,405).** `AVAILABILITY_YTD` has **209** genuine NULLs (4.53%); the locked decision is **exclude, never impute** — every availability rate uses the **4,405** non-null denominator ([DQ report](dq_report.md) §availability; regression-guarded so the non-null count stays exactly 4,405).
+2. **6 unmatched `UNIT_NO` (availability⋈utilization join).** Of the light-duty utilization rows, **6** have no matching availability row and fall outside `fact_vehicle` by design ([DQ report](dq_report.md) §7, `test_unmatched_6`). The 2,080 matched count is the underutilization/disposal denominator; the 6 unmatched are documented, not dropped silently.
+3. **Sales-vs-redemption interpretation flagged for SME validation.** The exact business meaning of ferry "sales" vs "redemption" is a **stated assumption** flagged for SME validation ([DQ report](dq_report.md) A3); the signed `sales_redemption_gap` is shown signed, never `abs()`.
+
+All three are **audit-defensible stated assumptions**, surfaced openly so the panel reading stays honest and reproducible.
+
+---
+
+## PDF Export Layout
+
+**D-08.** Produce a **three-page** PDF, one page per report page, for the panel hand-off:
+
+| PDF page | Report page | Orientation / size | Fit |
+|----------|-------------|--------------------|-----|
+| 1 | **Page 1 — Fleet Maintenance** | 16:9 landscape | Fit to page |
+| 2 | **Page 2 — Ferry Operations** | 16:9 landscape | Fit to page |
+| 3 | **Page 3 — Summary / Insights** | 16:9 landscape | Fit to page |
+
+**Before exporting**, set each report page's **Canvas size = 16:9** in Power BI (Format pane → Canvas settings → Type = 16:9) so the export is landscape and fit-to-page. Then **File → Export → PDF**. A one-page executive summary (Page 3 alone) is **optional**, not required. Keep the grayscale-safe accessibility convention (signed values + worst-first sort) so the PDF reads correctly without color.
+
+---
+
+## Sources & Licence
+
+- City of Toronto **Open Data** portal — the three source datasets (vehicle availability, light-duty utilization, Toronto Island Ferry ticket counts).
+- **May 2023 FSD** General Government Committee report — the cited availability targets.
+- Auditor General **Operational Review 2019.AU2.2 / 2019.AU2.3** — the downtime and underutilization themes.
+- Licence: **Open Government Licence – Toronto**.
+
+*This spec is a **text build contract**: DAX measures are transcribed from [`measures_spec.md`](measures_spec.md) (values locked in `data/kpi/` by `tests/test_kpis.py`) and corrected against the verbatim Gold headers via the D-04 reconciliation table. **No `.pbix` / PBIP / TMDL is generated** — the Power BI report canvas, relationships, theme, and slicers are authored **manually** in Power BI Desktop on top of the modeled output. Audit thresholds are **cited, never recalculated.** REPORT-01 satisfied — all three pages (Fleet Maintenance, Ferry Operations, Summary/Insights) specified, plus PDF-export layout and sources.*
