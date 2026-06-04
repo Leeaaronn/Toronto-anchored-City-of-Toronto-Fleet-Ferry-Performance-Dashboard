@@ -17,6 +17,8 @@ collision (test_export.py Pitfall 6); paths via ``config.GOLD_DIR / name`` + ``.
 
 from __future__ import annotations
 
+import pathlib
+
 import duckdb
 import pytest
 
@@ -47,18 +49,22 @@ def test_class_target_value(
     assert target == expected
 
 
-def test_class_target_parquet_roundtrip(gold: duckdb.DuckDBPyConnection) -> None:
-    """The committed Parquet re-reads via a second :memory: connection: Heavy -> 85."""
-    class_target.write_class_target(gold)
-
-    parquet_path = (config.GOLD_DIR / "dim_class_target.parquet").as_posix()
-    rd = duckdb.connect(":memory:")
+def test_class_target_parquet_roundtrip(tmp_path: pathlib.Path) -> None:
+    """The Parquet roundtrip is correct: write to tmp, read back Heavy -> 85."""
+    con = duckdb.connect(":memory:")
     try:
-        heavy_target = rd.execute(
-            "SELECT target FROM read_parquet(?) WHERE class_label = 'Heavy'",
-            [parquet_path],
-        ).fetchone()[0]
+        class_target.build_class_target(con)
+        # Write to a temp location, not the committed Gold directory.
+        p = (tmp_path / "dim_class_target").as_posix()
+        con.execute(f"COPY (SELECT * FROM dim_class_target) TO '{p}.parquet' (FORMAT PARQUET)")
+        rd = duckdb.connect(":memory:")
+        try:
+            heavy_target = rd.execute(
+                "SELECT target FROM read_parquet(?) WHERE class_label = 'Heavy'",
+                [f"{p}.parquet"],
+            ).fetchone()[0]
+        finally:
+            rd.close()
     finally:
-        rd.close()
-
+        con.close()
     assert heavy_target == 85
