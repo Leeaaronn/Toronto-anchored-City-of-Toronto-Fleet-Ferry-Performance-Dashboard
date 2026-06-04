@@ -90,3 +90,52 @@ GOLD_EXPECTED_ROWS: dict[str, int] = {
     "dim_date": 4383,
     "dim_time": 96,
 }
+
+# --- Phase-3 KPI-layer constants --------------------------------------------
+# Asset-class availability targets (audit-cited, NEVER recalculated — AG
+# 2019.AU2.2 / May 2023 FSD General Government Committee report). A unit is
+# "below threshold" when AVAILABILITY_YTD < its class target (D-01); the signed
+# gap_to_target = actual - target (D-03). These are percentage-point targets on
+# the 0-100 scale; AVAILABILITY_YTD is the 0-1 fraction, so the KPI SQL compares
+# AVAILABILITY_YTD against target / 100. NEVER inline these into a SQL string —
+# bind/join them in via ? (transform.py REFERENCE_YEAR idiom).
+ASSET_CLASS_TARGETS: dict[str, int] = {
+    "Light": 95,
+    "Medium": 92,
+    "Heavy": 85,
+    "Off-Road": 88,
+    "Other": 90,
+}
+
+# Maps the real fact_vehicle UNIT_TYPE values (upper-case, VERIFIED against
+# data/gold/fact_vehicle.parquet) to the ASSET_CLASS_TARGETS label keys, so the
+# by-class KPI SQL can join class targets in without inlining either dict.
+UNIT_TYPE_TO_CLASS: dict[str, str] = {
+    "LIGHT DUTY": "Light",
+    "MEDIUM DUTY": "Medium",
+    "HEAVY DUTY": "Heavy",
+    "OFF-ROAD": "Off-Road",
+    "OTHER": "Other",
+}
+
+# Committed KPI-snapshot output directory (parallel to GOLD_DIR). Kept reviewable
+# in git — every dashboard number must reproduce a value written here (D-05).
+KPI_DIR: Path = PROJECT_ROOT / "data" / "kpi"
+
+# The seven table-valued KPI base names -> one CSV each under KPI_DIR (parallel
+# to GOLD_TABLES). Drives the config-driven snapshot writer in kpis.py (D-05).
+KPI_TABLE_CSVS: list[str] = [
+    "availability_by_class",
+    "availability_by_division",
+    "exception_list",
+    "underutilization_by_division",
+    "ferry_yoy",
+    "ferry_heatmap",
+    "sales_redemption_gap",
+]
+
+# Inclusive complete-calendar-year window for the ferry YoY trend KPI (D-10).
+# The ~8-month 2015 and ~6-month 2026 partial years are labeled and excluded
+# from YoY growth ONLY — lifetime totals (D-09) and seasonality (D-11) use ALL
+# data. The 2020 < 2019 COVID-dip guard is asserted within this window.
+FERRY_COMPLETE_YEARS: tuple[int, int] = (2016, 2025)

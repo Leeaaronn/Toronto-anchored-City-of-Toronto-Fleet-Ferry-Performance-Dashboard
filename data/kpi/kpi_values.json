@@ -1,0 +1,45 @@
+{
+  "availability_by_class": {
+    "Heavy": {
+      "availability_rate": 0.7947783575446652,
+      "gap_to_target": -0.055221642455334785,
+      "target": 85
+    },
+    "Light": {
+      "availability_rate": 0.9148903939302883,
+      "gap_to_target": -0.035109606069711696,
+      "target": 95
+    },
+    "Medium": {
+      "availability_rate": 0.8611638211554251,
+      "gap_to_target": -0.05883617884457493,
+      "target": 92
+    },
+    "Off-Road": {
+      "availability_rate": 0.8882087992549461,
+      "gap_to_target": 0.008208799254946109,
+      "target": 88
+    },
+    "Other": {
+      "availability_rate": 0.9337194166028758,
+      "gap_to_target": 0.03371941660287581,
+      "target": 90
+    }
+  },
+  "availability_nonnull_n": 4405,
+  "availability_null_n": 209,
+  "ferry_complete_years": [
+    2016,
+    2025
+  ],
+  "ferry_lifetime_redemptions": 13076317,
+  "ferry_lifetime_sales": 13257804,
+  "ferry_sales_2019": 1249725,
+  "ferry_sales_2020": 366606,
+  "ferry_sales_max": 7229,
+  "ferry_sales_median": 12.0,
+  "light_duty_matched_n": 2080,
+  "mean_of_class_means": 0.8785521577,
+  "overall_availability_rate": 0.8899126467628139,
+  "overall_underutilization_rate": 0.05721153846153846
+}
