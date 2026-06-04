@@ -108,7 +108,7 @@ This keeps a single conformed `dim_division` (one `division_name` slicer) rather
 | Page(s) | Slicer field (Gold column) | Slicer type | Sync scope |
 |---------|----------------------------|-------------|------------|
 | All 3 pages | `dim_division[division_name]` (Division) | Dropdown | **Synced** across Fleet / Ferry / Summary |
-| All 3 pages | `fact_vehicle[CATEGORY_CLASS]` (Asset Class) | Dropdown (multi-select) | **Synced** across all pages |
+| All 3 pages | `fact_vehicle[UNIT_TYPE]` (Asset Class — 5 audit labels) | Dropdown (multi-select) | **Synced** across all pages |
 | All 3 pages | `dim_date[year]` (Year) | Dropdown / tile list | **Synced** across all pages |
 | Ferry page only | `fact_ferry[season]` (Season) | List (4 tiles) | **Page-local** (not synced) |
 | Ferry page only | `fact_ferry[daypart]` (Daypart) | List | **Page-local** (not synced) |
