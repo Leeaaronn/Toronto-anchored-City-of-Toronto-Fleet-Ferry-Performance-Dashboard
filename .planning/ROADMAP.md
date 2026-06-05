@@ -15,7 +15,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 1: Ingest, Profile & DQ Baseline** - Load 3 CSVs into validated Bronze tables; produce data dictionary, DQ report, and Pandera regression guards (completed 2026-06-02)
 - [x] **Phase 2: Transform, Model & Join Integrity** - Build the Gold star schema as Parquet with the availability⋈utilization join and split date/time dimensions, all tested (completed 2026-06-03)
 - [x] **Phase 3: KPI Layer & Measures Spec** - Compute all Domain A/B KPIs in SQL against audit benchmarks; produce KPI definitions doc + DAX-ready measures spec (completed 2026-06-04)
-- [x] **Phase 4: Power BI Report Specification** - Page-by-page report spec with exact Gold names, relationships, slicers, theme, DAX, and PDF layout (completed 2026-06-04)
+- [x] **Phase 4: Power BI Report Specification** - Page-by-page report spec with exact Gold names, relationships, slicers, theme, DAX, and PDF layout (completed 2026-06-04)
 - [ ] **Phase 5: Narrative Deliverables** - Full drafts of the requirements-gathering approach and stakeholder-engagement strategy narratives
 - [ ] **Phase 6: Ship** - README with citations, one-command reproducible pipeline, `data/gold/` Parquet files, repo cleanup, all three deliverables confirmed
 
@@ -87,7 +87,9 @@ Decimal phases appear between their surrounding integers in numeric order.
   2. A full draft of the stakeholder-engagement strategy exists (stakeholder register with real named stakeholders, power/interest grid, RACI matrix, engagement approach per group, communication plan, feedback loops, risks).
   3. Both documents open with AG theme framing (downtime AU2.2 + underutilization AU2.3) and every external number carries an inline citation.
   4. Disposal candidates are phrased as a screening list for SME review (not decisions), and an explicit stated-assumptions section is present.
-**Plans**: TBD
+**Plans**: 2 plans
+  - [ ] 05-01-PLAN.md — requirements_approach.md (NARR-01): AG-themes-first, business context, stakeholder ID, 4 elicitation techniques, 5 requirement types, prepare/conduct/confirm, AG + BABOK v3 traceability, assumptions, Sources
+  - [ ] 05-02-PLAN.md — stakeholder_engagement.md (NARR-02): AG-themes-first, register (3 named + role-based), power/interest grid, RACI, engagement approach, communication plan, feedback loops, risks, assumptions, BABOK v3 traceability, Sources
 
 ### Phase 6: Ship
 **Goal**: The submission is packaged, reproducible, cited, and self-consistent — all three required components confirmed complete and the pipeline runs clean from a fresh environment.
@@ -111,5 +113,5 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6
 | 2. Transform, Model & Join Integrity | 3/3 | Complete   | 2026-06-03 |
 | 3. KPI Layer & Measures Spec | 3/3 | Complete   | 2026-06-04 |
 | 4. Power BI Report Specification | 3/3 | Complete   | 2026-06-04 |
-| 5. Narrative Deliverables | 0/TBD | Not started | - |
+| 5. Narrative Deliverables | 0/2 | Not started | - |
 | 6. Ship | 0/TBD | Not started | - |
