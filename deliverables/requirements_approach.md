@@ -78,3 +78,80 @@ In FSD terms: the **business** requirement is the audit-driven mandate; **stakeh
 | **Functional** (solution) | What the solution must *do* | The dashboard shows **availability gap-to-target by asset class** (e.g. Heavy **79.5% vs 85**, gap **−0.0552**; Light **91.5% vs 95**, gap **−0.0351**) |
 | **Non-functional** (solution) | Quality attributes / constraints on the solution | The report **exports to a panel-readable PDF** (16:9 landscape, fit-to-page); availability rates exclude the **209** NULLs (denominator **4,405**), never imputed |
 | **Transition** | Temporary capabilities needed to move to the future state | **SME validation of the 34-unit disposal screening list** before any disposal process — a screening list for SME review, not a disposal decision |
+
+---
+
+## Prepare / Conduct / Confirm Process
+
+Elicitation is run as a three-step practitioner lifecycle — **prepare**, **conduct**, **confirm** — so that requirements move from raw source material to SME-validated insight in a traceable way. The prepare step scopes the work and inventories the sources; the conduct step performs the elicitation actually done on the supplied data and stages the interviews/workshops that come next; the confirm step routes the analytical outputs (KPI targets, the exception list, and the 34-unit disposal screening list) back to the SMEs for validation before anything is acted on.
+
+The "confirm" step is deliberately tied to the SME-screening framing: the 34-unit disposal screening list is a screening list for SME review, never a disposal decision, and "confirm" is where Lalovic and Lamsaki validate it.
+
+| Step | Activities | FSD specifics |
+|------|------------|---------------|
+| **Prepare** | Scope to the two AG themes; inventory sources; confirm stakeholder availability | Scope locked to **2019.AU2.2 / 2019.AU2.3** [2]; sources = the three Open Data datasets (**4,614 / 2,086 / 272,529**) [1] + the May 2023 FSD report [3]; identify Sponsor + two SMEs |
+| **Conduct** | Run the elicitation techniques | **Performed:** document analysis + data/interface analysis (the availability⋈utilization join, **2,080** matched). **Next step:** interviews / SME workshops with Lalovic, Lamsaki, Jollimore [3] |
+| **Confirm** | Validate outputs with SMEs | SME review of the audit-cited availability targets, the **1,734**-unit exception list, and the **34-unit disposal screening list** — a screening list for SME review, not a disposal decision |
+
+---
+
+## Traceability to AG Themes
+
+Every requirement and KPI traces to an Auditor General Operational Review theme: availability / downtime → **2019.AU2.2**; underutilization → **2019.AU2.3**; the disposal screen, which combines both, traces to **AU2.2 + AU2.3** [2]. This mirrors the KPI↔AG-theme traceability already established in [`kpi_definitions.md`](kpi_definitions.md) and uses KPI names exactly as that document defines them, so the three deliverables stay self-consistent.
+
+| Requirement / KPI (per [`kpi_definitions.md`](kpi_definitions.md)) | AG Theme |
+|--------------------------------------------------------------------|----------|
+| Overall availability rate (pooled) | **AU2.2** (downtime / availability) |
+| Availability by class vs target | **AU2.2** (downtime / availability) |
+| Exception list (critically-low units) | **AU2.2** (downtime / availability) |
+| Underutilization rate (overall / by division / specialized) | **AU2.3** (underutilization) |
+| Disposal-candidate SME screening list | **AU2.2 + AU2.3** (low availability **and** underutilized) |
+
+**Reconciliation — 5.8% (computed) vs ~14% (cited audit).** The computed underutilization rate of **5.8%** over **2,080** matched light-duty units [1] is materially lower than the AG's **~14%** benchmark from the 2019 Operational Review (**2019.AU2.3**) [2]. The two figures cover **different periods** and scoping — the supplied CSV is a later light-duty snapshot; the AG figure is the 2019 baseline. The defensible reading is **right-sizing** after the 2019 audit, **not an error**: the classification is taken as supplied and never recomputed, and the **~14%** is a cited narrative fact. This framing is carried verbatim from [`kpi_definitions.md`](kpi_definitions.md) (A-Reconciliation) and [`dq_report.md`](dq_report.md) §5.
+
+---
+
+## Assumptions & Constraints
+
+Per the project's stated-assumptions discipline, every claim that is cited (not computed), uncertain, or constrained is logged here with an explicit disposition — cloning the [`dq_report.md`](dq_report.md) §6 "ID | Caveat | Disposition" pattern. This is the explicit stated-assumptions section the deliverable requires.
+
+| ID | Caveat / constraint | Disposition |
+|----|---------------------|-------------|
+| **R1** | Observation & surveys are **planned / forward-looking**, not performed (the assignment was data-only). | **Forward-looking** — proposed for a live engagement; not claimed as done. |
+| **R2** | Role-based stakeholders are illustrative where uncertain — the ATU local numbers and the exact **PMMD** acronym are plausible Toronto public-sector specifics, not sourced facts. | **Stated assumption** — presented role-based, flagged for SME confirmation (RESEARCH A2). |
+| **R3** | Fine-grained BABOK v3 task labels are mapped to **knowledge areas** where the exact sub-task wording is uncertain. | **Stated assumption** — knowledge-area mapping preferred over a possibly-mislabelled task (RESEARCH A1). |
+| **R4** | The **209** NULL `AVAILABILITY_YTD` rows are **excluded, never imputed**; all availability rates use the **4,405** denominator. | **Computed / locked decision** — imputation would distort audit-benchmarked rates. |
+| **R5** | **6** light-duty utilization rows have **no matching availability record** (2,080 + 6 = 2,086) and fall outside `fact_vehicle` by design. | **Computed** — surfaced via anti-join, documented ([`dq_report.md`](dq_report.md) §7), not dropped. |
+| **R6** | The underutilization classification is **pre-applied** and the km / engine-hour thresholds are **cited from the audit, never recomputed**. | **Data-fidelity constraint** — taken as supplied. |
+| **R7** | The City Vehicle Availability dataset is listed **Retired**; the file is a point-in-time YTD snapshot (pull date **2026-06-02**). | **Cited** — any availability rate is "as of the snapshot." |
+| **R8** | The Sales-vs-Redemption interpretation for the ferry data is an assumption. | **Flagged for SME validation** ([`dq_report.md`](dq_report.md) §3, caveat A3). |
+| **R9** | The disposal screen flags **34** units. | **Flagged for SME** — a screening list for SME review, never a disposal decision. |
+
+---
+
+## BABOK Guide v3 Traceability
+
+This document uses practitioner headings; the table below maps them to the BABOK Guide v3 knowledge areas and tasks/techniques for the panel's reference [4]. Where a fine-grained task label is uncertain, the row references the knowledge area rather than risk a mislabel (per assumption R3).
+
+| This document's section | BABOK v3 Knowledge Area | BABOK v3 Task / Technique |
+|-------------------------|-------------------------|---------------------------|
+| Business Context | Strategy Analysis | Analyze Current State |
+| Stakeholder Identification | Business Analysis Planning & Monitoring | Plan Stakeholder Engagement; Stakeholder List, Map, or Personas |
+| Elicitation Plan | Elicitation & Collaboration | Document Analysis; Interviews (+ Workshops); Interface Analysis / Data Modelling; Observation and Survey or Questionnaire |
+| Requirement Types | Requirements Analysis & Design Definition (RADD) | Requirements classification schema (business / stakeholder / solution [functional, non-functional] / transition) |
+| Prepare / Conduct / Confirm Process | Elicitation & Collaboration | Prepare for, Conduct, and Confirm Elicitation Results |
+| Traceability to AG Themes | Requirements Life Cycle Management | Trace Requirements |
+| Assumptions & Constraints | Business Analysis Planning & Monitoring | Plan Business Analysis Governance (approach to assumptions/risks) |
+
+---
+
+## Sources & Licence
+
+1. City of Toronto **Open Data** portal — the three source datasets (vehicle availability, light-duty utilization, Toronto Island Ferry ticket counts); row counts **4,614 / 2,086 / 272,529** and all computed figures trace to the analysis snapshot built from these.
+2. Auditor General **Operational Review 2019.AU2.2 / 2019.AU2.3** — the downtime and underutilization themes, the asset-class availability targets, and the **~14%** underutilization benchmark.
+3. **May 2023 FSD** General Government Committee report — the three named stakeholders (David Jollimore, Vukadin Lalovic, Miguel Lamsaki) and the FSD response to the audit.
+4. **BABOK Guide v3** / **IIBA** — the six knowledge areas, the requirements classification schema, and the named elicitation techniques used in the traceability table.
+
+Licence: **Open Government Licence – Toronto**.
+
+*Quantitative figures are transcribed verbatim from `data/kpi/kpi_values.json` (locked by `tests/test_kpis.py`) and the existing `deliverables/*.md`; audit thresholds are cited, never recalculated. Only David Jollimore, Vukadin Lalovic, and Miguel Lamsaki are named as persons; all other stakeholders are role/title only.*
