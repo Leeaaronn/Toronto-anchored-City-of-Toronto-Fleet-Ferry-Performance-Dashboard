@@ -87,9 +87,10 @@ Decimal phases appear between their surrounding integers in numeric order.
   2. A full draft of the stakeholder-engagement strategy exists (stakeholder register with real named stakeholders, power/interest grid, RACI matrix, engagement approach per group, communication plan, feedback loops, risks).
   3. Both documents open with AG theme framing (downtime AU2.2 + underutilization AU2.3) and every external number carries an inline citation.
   4. Disposal candidates are phrased as a screening list for SME review (not decisions), and an explicit stated-assumptions section is present.
-**Plans**: 2 plans
+**Plans**: 3 plans
   - [x] 05-01-PLAN.md — requirements_approach.md (NARR-01): AG-themes-first, business context, stakeholder ID, 4 elicitation techniques, 5 requirement types, prepare/conduct/confirm, AG + BABOK v3 traceability, assumptions, Sources
   - [x] 05-02-PLAN.md — stakeholder_engagement.md (NARR-02): AG-themes-first, register (3 named + role-based), power/interest grid, RACI, engagement approach, communication plan, feedback loops, risks, assumptions, BABOK v3 traceability, Sources
+  - [x] 05-03-PLAN.md — gap closure (NARR-02): wire line-67 KPI figures to inline Source [4], resolving the dangling §10 Open Data entry
 
 ### Phase 6: Ship
 **Goal**: The submission is packaged, reproducible, cited, and self-consistent — all three required components confirmed complete and the pipeline runs clean from a fresh environment.
