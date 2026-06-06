@@ -64,7 +64,7 @@ The engagement approach assigns each group a posture consistent with its power/i
 | Group | Posture | Objective | Key message |
 |-------|---------|-----------|-------------|
 | Sponsor (Jollimore) | Manage closely | Secure direction, unblock decisions, own the AG-response narrative. | The analytics make the AG themes measurable; here are the targets, the exception list, and the screening list to endorse. |
-| SMEs (Lalovic, Lamsaki) | Manage closely | Confirm KPI / class targets and validate the **34-unit disposal screening list** for SME review. | These numbers are the snapshot truth (89.0% pooled availability; 5.8% underutilization over 2,080 matched units); confirm targets and the screening list — they are not a disposal decision. |
+| SMEs (Lalovic, Lamsaki) | Manage closely | Confirm KPI / class targets and validate the **34-unit disposal screening list** for SME review. | These numbers are the snapshot truth (89.0% pooled availability; 5.8% underutilization over 2,080 matched units) [4]; confirm targets and the screening list — they are not a disposal decision. |
 | Auditor General (Toronto) | Keep satisfied | Demonstrate the AG recommendations (2019.AU2.2 / 2019.AU2.3) are being measured and acted on. | Downtime and underutilization are now tracked KPIs with cited benchmarks and documented data gaps. |
 | Council's General Govt. Committee | Keep satisfied | Provide governance-grade reporting consistent with the May 2023 FSD report. | Progress against the AG themes, with assumptions and caveats stated. |
 | Director, Financial Planning | Keep satisfied | Inform funding for replacement / disposal and the cost-of-downtime case. | The exception list and screening list quantify where downtime and underutilization concentrate. |
