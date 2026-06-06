@@ -265,7 +265,7 @@ The README and the verification step should confirm these numbers agree across t
 | A3 | GitHub Actions CI is out of Phase-6 scope (deferred to EXT-02) | Standard Stack / Alternatives | Low — REQUIREMENTS.md explicitly lists CI under v2 EXT-02 and the brief marks it OPTIONAL |
 | A4 | The exact hatchling `[tool.hatch.build.targets.wheel]` stanza | Code Examples | Low — verify against current hatchling docs at plan time; intent is solid |
 
-## Open Questions
+## Open Questions (RESOLVED)
 
 1. **Is `pipeline.py` the desired entry, or should the README document `uv run pytest` + per-module `main()`s instead?**
    - What we know: CLAUDE.md already prescribes `uv run python -m fleet_analytics.pipeline`; two `main()`s exist as precedent.
