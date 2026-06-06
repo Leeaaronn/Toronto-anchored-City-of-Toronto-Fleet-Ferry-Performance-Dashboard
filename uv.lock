@@ -43,7 +43,7 @@ wheels = [
 [[package]]
 name = "fleet-analytics"
 version = "0.1.0"
-source = { virtual = "." }
+source = { editable = "." }
 dependencies = [
     { name = "duckdb" },
     { name = "pandas" },

@@ -1,3 +1,7 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
 [project]
 name = "fleet-analytics"
 version = "0.1.0"
@@ -17,3 +21,6 @@ dev = [
     "pandera>=0.26",
     "pytest>=9.0.3",
 ]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/fleet_analytics"]
