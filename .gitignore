@@ -9,3 +9,8 @@ __pycache__/
 *.duckdb
 *.duckdb.wal
 data/bronze/
+
+# Build artifacts
+build/
+*.egg-info/
+dist/
