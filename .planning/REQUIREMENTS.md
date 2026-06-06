@@ -23,17 +23,17 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### KPIs & Measures Spec
 
-- [ ] **KPI-01**: All Domain A (fleet maintenance) and Domain B (ferry) KPIs are computed authoritatively in SQL/Python and cross-checked against audit benchmarks (overall + by-asset-class availability vs targets, exception list, underutilization rate, disposal-candidate cross-measure, ferry YoY/seasonality/heatmap/sales-redemption gap)
+- [x] **KPI-01**: All Domain A (fleet maintenance) and Domain B (ferry) KPIs are computed authoritatively in SQL/Python and cross-checked against audit benchmarks (overall + by-asset-class availability vs targets, exception list, underutilization rate, disposal-candidate cross-measure, ferry YoY/seasonality/heatmap/sales-redemption gap)
 - [x] **KPI-02**: A KPI definitions doc (formulas) and a DAX-ready measures spec pair each KPI with copy-paste DAX and its SQL validation value, including the pooled-mean (not average-of-averages) grand-total guard
 
 ### Power BI Report Spec
 
-- [ ] **REPORT-01**: A page-by-page Power BI report spec (Fleet Maintenance, Ferry Operations, Summary/Insights) defines exact Gold column/table names, single-direction relationships, "Mark as Date Table", slicer plan, theme, exact DAX per visual, and PDF-export layout
+- [x] **REPORT-01**: A page-by-page Power BI report spec (Fleet Maintenance, Ferry Operations, Summary/Insights) defines exact Gold column/table names, single-direction relationships, "Mark as Date Table", slicer plan, theme, exact DAX per visual, and PDF-export layout
 
 ### Narrative Deliverables
 
-- [ ] **NARR-01**: A full draft of the requirements-gathering approach narrative (BABOK/IIBA structure, real named stakeholders, elicitation techniques, traceability to AG themes, stated assumptions, inline citations)
-- [ ] **NARR-02**: A full draft of the stakeholder-engagement strategy narrative (stakeholder register, power/interest grid, RACI, engagement + communication plan, feedback loops, risks, inline citations)
+- [x] **NARR-01**: A full draft of the requirements-gathering approach narrative (BABOK/IIBA structure, real named stakeholders, elicitation techniques, traceability to AG themes, stated assumptions, inline citations)
+- [x] **NARR-02**: A full draft of the stakeholder-engagement strategy narrative (stakeholder register, power/interest grid, RACI, engagement + communication plan, feedback loops, risks, inline citations)
 
 ### Packaging & Ship
 
@@ -75,11 +75,11 @@ Which phases cover which requirements. Updated during roadmap creation.
 | MODEL-02 | Phase 2 | Complete |
 | MODEL-03 | Phase 2 | Complete |
 | MODEL-04 | Phase 2 | Complete |
-| KPI-01 | Phase 3 | Pending |
+| KPI-01 | Phase 3 | Complete |
 | KPI-02 | Phase 3 | Complete |
-| REPORT-01 | Phase 4 | Pending |
-| NARR-01 | Phase 5 | Pending |
-| NARR-02 | Phase 5 | Pending |
+| REPORT-01 | Phase 4 | Complete |
+| NARR-01 | Phase 5 | Complete |
+| NARR-02 | Phase 5 | Complete |
 | SHIP-01 | Phase 6 | Pending |
 
 **Coverage:**
@@ -89,4 +89,4 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 ---
 *Requirements defined: 2026-06-02*
-*Last updated: 2026-06-02 after roadmap creation (6 phases, 14/14 mapped)*
+*Last updated: 2026-06-06 — reconciled traceability after human confirmation (KPI-01, REPORT-01, NARR-01, NARR-02 flipped Pending → Complete to match ROADMAP/STATE; SHIP-01 left for /gsd:verify-work)*
