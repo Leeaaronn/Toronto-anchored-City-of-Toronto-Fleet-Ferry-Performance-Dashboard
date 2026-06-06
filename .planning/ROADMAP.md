@@ -17,7 +17,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 3: KPI Layer & Measures Spec** - Compute all Domain A/B KPIs in SQL against audit benchmarks; produce KPI definitions doc + DAX-ready measures spec (completed 2026-06-04)
 - [x] **Phase 4: Power BI Report Specification** - Page-by-page report spec with exact Gold names, relationships, slicers, theme, DAX, and PDF layout (completed 2026-06-04)
 - [x] **Phase 5: Narrative Deliverables** - Full drafts of the requirements-gathering approach and stakeholder-engagement strategy narratives (completed 2026-06-05)
-- [ ] **Phase 6: Ship** - README with citations, one-command reproducible pipeline, `data/gold/` Parquet files, repo cleanup, all three deliverables confirmed
+- [x] **Phase 6: Ship** - README with citations, one-command reproducible pipeline, `data/gold/` Parquet files, repo cleanup, all three deliverables confirmed (completed 2026-06-06)
 
 ## Phase Details
 
@@ -118,4 +118,4 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6
 | 3. KPI Layer & Measures Spec | 3/3 | Complete   | 2026-06-04 |
 | 4. Power BI Report Specification | 3/3 | Complete   | 2026-06-04 |
 | 5. Narrative Deliverables | 2/2 | Complete   | 2026-06-05 |
-| 6. Ship | 3/3 | Executed (verifying) | - |
+| 6. Ship | 3/3 | Complete   | 2026-06-06 |
