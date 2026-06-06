@@ -1,28 +1,24 @@
 ---
 phase: 05-narrative-deliverables
-verified: 2026-06-05T00:00:00Z
-status: gaps_found
-score: 3/4 must-haves verified
+verified: 2026-06-06T00:00:00Z
+status: passed
+score: 4/4 must-haves verified
 overrides_applied: 0
-gaps:
-  - truth: "Both documents open with AG theme framing (downtime AU2.2 + underutilization AU2.3) and every external number carries an inline citation."
-    status: failed
-    reason: >
-      stakeholder_engagement.md line 67 contains the quantitative claims "89.0% pooled availability; 5.8% underutilization over 2,080 matched units" with no inline [n] marker of any kind. Source [4] (City of Toronto Open Data) is listed in §10 Sources & Licence but is never cited inline anywhere in the document body. The document's own Method statement (line 5) explicitly promises "every quantitative claim is a falsifiable, sourced figure transcribed verbatim... or a cited external source, never re-estimated" — this promise is not fulfilled at line 67.
-    artifacts:
-      - path: "deliverables/stakeholder_engagement.md"
-        issue: "Line 67: 89.0% and 5.8%/2,080 carry no inline [n] marker. Line 151: Source [4] listed but never cited inline — dangling source entry."
-    missing:
-      - "Add inline citation markers to the quantitative claims on line 67 (e.g., [4] for the Open Data figures, and/or [1] for the AG benchmark context)."
-      - "Ensure Source [4] in §10 is referenced at least once inline, or remove the orphaned entry and fold its content into an existing source."
+re_verification:
+  previous_status: gaps_found
+  previous_score: 3/4
+  gaps_closed:
+    - "Both documents open with AG theme framing (downtime AU2.2 + underutilization AU2.3) and every external number carries an inline citation."
+  gaps_remaining: []
+  regressions: []
 ---
 
 # Phase 5: Narrative Deliverables Verification Report
 
 **Phase Goal:** Two credible public-sector BA artifacts are drafted — readable as real IIBA/BABOK-structured documents grounded in the AG audit, real named stakeholders, and inline citations.
-**Verified:** 2026-06-05
-**Status:** gaps_found
-**Re-verification:** No — initial verification
+**Verified:** 2026-06-06
+**Status:** passed
+**Re-verification:** Yes — after gap closure 05-03 (commit 4ac4f2c)
 
 ---
 
@@ -32,12 +28,12 @@ gaps:
 
 | # | Truth | Status | Evidence |
 |---|-------|--------|----------|
-| 1 | A full draft of the requirements-gathering approach exists (business context, stakeholder identification, elicitation techniques with rationale, requirements types, prepare/conduct/confirm process, traceability to AG themes, assumptions and constraints). | VERIFIED | `deliverables/requirements_approach.md` is 157 lines, substantive throughout — all sections confirmed present: Business Context, Stakeholder Identification, Elicitation Plan (4 techniques, performed-vs-planned explicit), Requirement Types (all 5 with FSD examples), Prepare/Conduct/Confirm, Traceability to AG Themes, Assumptions & Constraints, BABOK v3 traceability table, Sources & Licence footer. |
-| 2 | A full draft of the stakeholder-engagement strategy exists (stakeholder register with real named stakeholders, power/interest grid, RACI matrix, engagement approach per group, communication plan, feedback loops, risks). | VERIFIED | `deliverables/stakeholder_engagement.md` is 154 lines, substantive throughout — all sections confirmed present: §1 Register, §2 Power/Interest Grid, §3 RACI, §4 Engagement Approach, §5 Communication Plan, §6 Feedback Loops, §7 Risks, §8 Stated Assumptions, §9 BABOK traceability, §10 Sources & Licence. |
-| 3 | Both documents open with AG theme framing (downtime AU2.2 + underutilization AU2.3) and every external number carries an inline citation. | FAILED | `requirements_approach.md`: VERIFIED — all four sources [1]–[4] cited inline; AG themes in the opening blockquote. `stakeholder_engagement.md`: FAILED — line 67 contains "89.0% pooled availability; 5.8% underutilization over 2,080 matched units" with no inline [n] marker. Source [4] (City of Toronto Open Data portal) is listed in §10 but never cited inline anywhere. The document's own Method statement (line 5) promises inline citations for every quantitative claim — that promise is broken at line 67. |
-| 4 | Disposal candidates are phrased as a screening list for SME review (not decisions), and an explicit stated-assumptions section is present. | VERIFIED | Both documents: "screening list" with "34" appears correctly throughout; "recommend disposal" does not appear in either document. requirements_approach.md has §"Assumptions & Constraints" (R1–R9 table). stakeholder_engagement.md has §8 "Stated Assumptions" (A1–A3, DQ-1–DQ-3 table). |
+| 1 | A full draft of the requirements-gathering approach exists (business context, stakeholder identification, elicitation techniques with rationale, requirements types, prepare/conduct/confirm process, traceability to AG themes, assumptions and constraints). | VERIFIED | `deliverables/requirements_approach.md` is 157 lines, substantive throughout. All sections confirmed present: Business Context, Stakeholder Identification, Elicitation Plan (4 techniques, performed-vs-planned explicit), Requirement Types (all 5 with FSD examples), Prepare/Conduct/Confirm, Traceability to AG Themes, Assumptions & Constraints, BABOK v3 traceability table, Sources & Licence footer. Unchanged from initial verification. |
+| 2 | A full draft of the stakeholder-engagement strategy exists (stakeholder register with real named stakeholders, power/interest grid, RACI matrix, engagement approach per group, communication plan, feedback loops, risks). | VERIFIED | `deliverables/stakeholder_engagement.md` is 154 lines, substantive throughout. All sections confirmed present: §1 Register, §2 Power/Interest Grid, §3 RACI, §4 Engagement Approach, §5 Communication Plan, §6 Feedback Loops, §7 Risks, §8 Stated Assumptions, §9 BABOK traceability, §10 Sources & Licence. Unchanged from initial verification. |
+| 3 | Both documents open with AG theme framing (downtime AU2.2 + underutilization AU2.3) and every external number carries an inline citation. | VERIFIED | `requirements_approach.md`: all four sources [1]–[4] cited inline; AG themes in the opening blockquote (previously passing). `stakeholder_engagement.md` line 67 **now carries `[4]`** immediately after the figures clause: "…over 2,080 matched units) [4]". The plan key-link pattern `5\.8% underutilization over 2,080 matched units.*\[4\]` matches. Source [4] is no longer a dangling entry — `grep -c "\[4\]"` returns 1 (inline marker; §10 uses markdown ordered-list form "4.", not bracket form, which is correct). Method statement on line 5 ("every quantitative claim is a falsifiable, sourced figure") is unchanged (`grep -c` returns 1). Figures byte-identical: "89.0% pooled availability; 5.8% underutilization over 2,080 matched units" count = 1. |
+| 4 | Disposal candidates are phrased as a screening list for SME review (not decisions), and an explicit stated-assumptions section is present. | VERIFIED | Both documents: "screening list" framing correct throughout; "recommend disposal" does not appear in either file. `requirements_approach.md` has §"Assumptions & Constraints" (R1–R9 table). `stakeholder_engagement.md` has §8 "Stated Assumptions" (A1–A3, DQ-1–DQ-3 table). Unchanged from initial verification. |
 
-**Score:** 3/4 truths verified
+**Score:** 4/4 truths verified
 
 ---
 
@@ -45,8 +41,8 @@ gaps:
 
 | Artifact | Expected | Status | Details |
 |----------|----------|--------|---------|
-| `deliverables/requirements_approach.md` | NARR-01 full draft, min 120 lines, contains "2019.AU2.2" | VERIFIED | File exists, 157 lines, substantive, all required sections present. |
-| `deliverables/stakeholder_engagement.md` | NARR-02 full draft, min 120 lines, contains "2019.AU2.2" | VERIFIED (with citation defect) | File exists, 154 lines, substantive, all required sections present. Citation integrity defect on line 67 is the blocking gap. |
+| `deliverables/requirements_approach.md` | NARR-01 full draft, min 120 lines, contains "2019.AU2.2" | VERIFIED | File exists, 157 lines, substantive, all required sections present. Unchanged from initial verification. |
+| `deliverables/stakeholder_engagement.md` | NARR-02 full draft, min 120 lines, contains "2019.AU2.2", contains "[4]" | VERIFIED | File exists, 154 lines, substantive, all required sections present. `[4]` is now present inline at line 67 (count = 1 via `grep -c "\[4\]"`). Citation defect CR-01 is closed. |
 
 ---
 
@@ -54,11 +50,11 @@ gaps:
 
 | From | To | Via | Status | Details |
 |------|----|-----|--------|---------|
-| `requirements_approach.md` | `data/kpi/kpi_values.json` | Verbatim number transcription (89.0%, 5.8%, 4,405, 209, 34, etc.) | WIRED | All number-registry figures verified present; none appear outside the registry. |
-| `requirements_approach.md` | `deliverables/kpi_definitions.md` | Shared KPI vocabulary + 5.8% vs ~14% reconciliation | WIRED | Reconciliation present at line 110 with "different periods" and "right-sizing, not an error" framing verbatim. |
-| `stakeholder_engagement.md` | RESEARCH stakeholder roster | Verbatim sourced names (Jollimore, Lalovic, Lamsaki) | WIRED | All three names present with correct titles; no other personal names found. |
-| `stakeholder_engagement.md` | `deliverables/kpi_definitions.md` | Shared KPI/AG vocabulary + disposal screening-list framing | WIRED | "screening list" × 14 occurrences; "2019.AU2.3" present; no "recommend disposal" in body. |
-| `stakeholder_engagement.md` | Sources [1]–[4] | Every inline [n] resolves; no dangling entries | PARTIAL — BLOCKER | [1], [2], [3] all used inline and resolve to Sources entries. [4] (City of Toronto Open Data) is listed in §10 but cited nowhere inline. Quantitative claims on line 67 carry no [n] marker. |
+| `requirements_approach.md` | `data/kpi/kpi_values.json` | Verbatim number transcription (89.0%, 5.8%, 4,405, 209, 34, etc.) | WIRED | All number-registry figures verified present; none appear outside the registry. Unchanged from initial verification. |
+| `requirements_approach.md` | `deliverables/kpi_definitions.md` | Shared KPI vocabulary + 5.8% vs ~14% reconciliation | WIRED | Reconciliation present at line 110 with "different periods" and "right-sizing, not an error" framing verbatim. Unchanged from initial verification. |
+| `stakeholder_engagement.md` | RESEARCH stakeholder roster | Verbatim sourced names (Jollimore, Lalovic, Lamsaki) | WIRED | All three names present with correct titles; no other personal names found. Unchanged from initial verification. |
+| `stakeholder_engagement.md` | `deliverables/kpi_definitions.md` | Shared KPI/AG vocabulary + disposal screening-list framing | WIRED | "screening list" present; "2019.AU2.3" present; no "recommend disposal" in body. Unchanged from initial verification. |
+| `stakeholder_engagement.md` line 67 | §10 Source [4] | inline [4] citation marker on quantitative claims | WIRED | `grep -nP "5\.8% underutilization over 2,080 matched units.*\[4\]"` matches line 67 exactly. §10 still lists exactly four numbered sources (lines 148–151; no renumbering). [1]=2, [2]=5, [3]=3 inline counts unchanged. Previously PARTIAL — BLOCKER; now WIRED. |
 
 ---
 
@@ -84,10 +80,10 @@ Step 7c: No probe scripts declared or applicable. This phase has no `scripts/*/t
 
 | Requirement | Source Plan | Description | Status | Evidence |
 |-------------|------------|-------------|--------|----------|
-| NARR-01 | 05-01-PLAN.md | Full draft of requirements-gathering approach narrative (BABOK/IIBA structure, real named stakeholders, elicitation techniques, traceability to AG themes, stated assumptions, inline citations) | SATISFIED | `deliverables/requirements_approach.md` exists and fulfils all listed criteria. |
-| NARR-02 | 05-02-PLAN.md | Full draft of stakeholder-engagement strategy narrative (stakeholder register, power/interest grid, RACI, engagement + communication plan, feedback loops, risks, inline citations) | PARTIALLY SATISFIED | `deliverables/stakeholder_engagement.md` exists and fulfils structure criteria. Citation-integrity defect (CR-01): line 67 quantitative claims lack inline [n]; Source [4] is a dangling entry. The "inline citations" sub-criterion of NARR-02 is not fully met. |
+| NARR-01 | 05-01-PLAN.md | Full draft of requirements-gathering approach narrative (BABOK/IIBA structure, real named stakeholders, elicitation techniques, traceability to AG themes, stated assumptions, inline citations) | SATISFIED | `deliverables/requirements_approach.md` exists and fulfils all listed criteria. Unchanged from initial verification. |
+| NARR-02 | 05-02-PLAN.md + 05-03-PLAN.md | Full draft of stakeholder-engagement strategy narrative (stakeholder register, power/interest grid, RACI, engagement + communication plan, feedback loops, risks, inline citations) | SATISFIED | `deliverables/stakeholder_engagement.md` exists, all structure criteria met, and inline citation discipline is now fully honoured: line 67 figures carry [4], no dangling source entries remain. |
 
-**Note on REQUIREMENTS.md tracking:** Both NARR-01 and NARR-02 remain marked `[ ] Pending` in `.planning/REQUIREMENTS.md` (lines 35–36 and 81–82). The checkboxes were not updated after execution. This is a bookkeeping gap but is not a content defect; however it means the traceability table is inaccurate.
+**Note on REQUIREMENTS.md tracking:** NARR-01 and NARR-02 remain marked `[ ] Pending` in `.planning/REQUIREMENTS.md`. This bookkeeping gap was noted in the initial verification; it does not affect content correctness. Checkbox updates are an orchestrator concern.
 
 ---
 
@@ -95,35 +91,27 @@ Step 7c: No probe scripts declared or applicable. This phase has no `scripts/*/t
 
 | File | Line | Pattern | Severity | Impact |
 |------|------|---------|----------|--------|
-| `deliverables/stakeholder_engagement.md` | 151 | Source [4] listed in §10 but never cited inline | BLOCKER | Breaks the document's own stated citation discipline; a panel reviewer sees a self-contradiction between the Method promise and the body. |
-| `deliverables/stakeholder_engagement.md` | 67 | "89.0% pooled availability; 5.8% underutilization over 2,080 matched units" — no inline [n] marker | BLOCKER | Same defect as above. The headline KPI figures in the SME engagement row carry no citation despite the Method statement's explicit promise. |
-| `.planning/REQUIREMENTS.md` | 35–36, 81–82 | NARR-01 and NARR-02 still marked Pending (`[ ]`) after completion | WARNING | Traceability table is stale; requirements not marked complete. Does not affect deliverable content but leaves the planning record inaccurate. |
+| `.planning/REQUIREMENTS.md` | 35–36, 81–82 | NARR-01 and NARR-02 still marked Pending (`[ ]`) after completion | WARNING | Traceability table is stale; does not affect deliverable content. Carried from initial verification. |
 
-No TODO / FIXME / TBD / XXX / HACK / PLACEHOLDER markers were found in either deliverable file.
+No TODO / FIXME / TBD / XXX / HACK / PLACEHOLDER markers were found in either deliverable file. The BLOCKER anti-patterns from the initial verification (line 67 no-citation and dangling Source [4]) are both resolved.
 
 ---
 
 ### Human Verification Required
 
-None — all must-have checks are resolvable from codebase evidence. The citation defect (CR-01) is a concrete, machine-verifiable finding. No visual or runtime behavior needs a human observer.
+None — all must-have checks are resolvable from codebase evidence. The previously-failed citation criterion is now machine-verifiable as closed.
 
 ---
 
 ## Gaps Summary
 
-One blocking gap prevents the phase goal from being fully achieved.
+No gaps. All four must-have truths are verified. The single blocking gap from the initial verification (CR-01: line 67 quantitative claims carried no inline citation; Source [4] was a dangling entry) was closed by gap-closure plan 05-03 (commit 4ac4f2c): an inline `[4]` marker was appended to the figures clause on line 67 of `deliverables/stakeholder_engagement.md`. The marker resolves to the existing §10 entry "City of Toronto Open Data portal — the three source datasets underlying the cited KPI figures." No figures were altered, no sources were renumbered, no other content was modified.
 
-**Root cause:** `stakeholder_engagement.md` was authored with Sources [1]–[3] wired to inline citations, but Source [4] (City of Toronto Open Data) was added to the footer without being wired to any inline usage. Simultaneously, the highest-visibility quantitative claims in the engagement-approach table (line 67) were written as prose context rather than as formally cited figures.
+**What passes (all four):** SC1 (requirements-gathering approach, full draft), SC2 (stakeholder-engagement strategy, full structure), SC3 (AG theme framing in both documents and every external number carries an inline citation), SC4 (disposal screening-list framing and stated-assumptions section).
 
-This is a narrow, single-file, single-location fix: add `[4]` (or `[1]`/`[4]` as appropriate) to the line 67 quantitative claims so the Method promise is honoured and the orphaned source entry resolves. The review (05-REVIEW.md, finding CR-01) supplies the exact recommended fix verbatim.
-
-The fix does not affect any other section of the file, does not touch code, does not require re-running tests, and does not cascade to `requirements_approach.md` (which correctly wires all four citations).
-
-**What passes:** SC1 (requirements-gathering approach, full draft), SC2 (stakeholder-engagement strategy, full structure), SC4 (disposal screening-list framing and stated-assumptions section). Both documents open with AG framing. Named-person discipline is clean across both files. BABOK knowledge-area names are not used as headings. Numbers trace to the registry throughout.
-
-**What fails:** SC3 — the "every external number carries an inline citation" clause — is broken in `stakeholder_engagement.md` at line 67.
+Phase 5 goal is achieved. Ready for Phase 6.
 
 ---
 
-_Verified: 2026-06-05_
+_Verified: 2026-06-06_
 _Verifier: Claude (gsd-verifier)_
