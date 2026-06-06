@@ -101,7 +101,10 @@ Decimal phases appear between their surrounding integers in numeric order.
   2. `data/gold/` contains all five Parquet files and the repo is cleaned of scratch artifacts.
   3. A README documents citations, stated assumptions, the pull date, and test results, citing the three primary sources (Open Data portal, May 2023 FSD report, AG 2019.AU2.2/2.3 Operational Review) under the Open Government Licence – Toronto.
   4. All three required deliverables (modeled data + specs, report spec, two narratives) are confirmed complete and self-consistent.
-**Plans**: TBD
+**Plans**: 3 plans
+  - [ ] 06-01-PLAN.md — `[build-system]` (hatchling) + `uv sync` (importable package) + `.gitattributes` (CSV eol=lf, Parquet binary) + `.gitignore` build artifacts (SHIP-01)
+  - [ ] 06-02-PLAN.md — `pipeline.py` full-chain orchestrator (one-command run) + `tests/test_pipeline.py` smoke test + clean no-op diff verification (SHIP-01)
+  - [ ] 06-03-PLAN.md — README (citations, assumptions, pull date, dated test gate, headline numbers) + REQUIREMENTS.md traceability reconcile + self-consistency cross-check + human review (SHIP-01)
 
 ## Progress
 
@@ -115,4 +118,4 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6
 | 3. KPI Layer & Measures Spec | 3/3 | Complete   | 2026-06-04 |
 | 4. Power BI Report Specification | 3/3 | Complete   | 2026-06-04 |
 | 5. Narrative Deliverables | 2/2 | Complete   | 2026-06-05 |
-| 6. Ship | 0/TBD | Not started | - |
+| 6. Ship | 0/3 | Not started | - |
