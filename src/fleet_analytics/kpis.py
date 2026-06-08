@@ -361,6 +361,12 @@ def build_scalars(con: duckdb.DuckDBPyConnection) -> dict[str, object]:
     light_duty_matched_n = q(
         "SELECT COUNT(*) FROM fact_vehicle WHERE Utilization IS NOT NULL"
     ).fetchone()[0]
+    # Flagship cross-measure: units below their class availability target AND
+    # pre-classified Underutilized (the availability⋈utilization value-add, AG
+    # 2019.AU2.2 / AU2.3). Counts the disposal_candidate screen from exception_list.
+    disposal_candidate_n = q(
+        "SELECT COUNT(*) FROM exception_list WHERE disposal_candidate"
+    ).fetchone()[0]
 
     ferry_lifetime_sales, ferry_lifetime_redemptions = q(
         'SELECT SUM("Sales Count"), SUM("Redemption Count") FROM fact_ferry'
@@ -399,6 +405,7 @@ def build_scalars(con: duckdb.DuckDBPyConnection) -> dict[str, object]:
         "availability_by_class": by_class,
         "overall_underutilization_rate": overall_underutilization_rate,
         "light_duty_matched_n": light_duty_matched_n,
+        "disposal_candidate_n": disposal_candidate_n,
         "ferry_lifetime_sales": ferry_lifetime_sales,
         "ferry_lifetime_redemptions": ferry_lifetime_redemptions,
         "ferry_sales_max": ferry_sales_max,

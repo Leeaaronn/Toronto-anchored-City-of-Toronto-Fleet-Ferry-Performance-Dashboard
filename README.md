@@ -56,6 +56,7 @@ The authoritative source of truth is [`data/kpi/kpi_values.json`](data/kpi/kpi_v
   - `0.0572` over the **2,080 matched** units (KPI layer).
   - Both round to 5.8%; the denominators differ by design (raw light-duty vs join-matched).
 - **2,080 matched / 6 unmatched** on the availability⋈utilization join (`UNIT_NO` normalized; the 6 unmatched are documented as a DQ finding, not dropped silently).
+- **34 disposal candidates** — light-duty units both below their availability target and flagged underutilized (the value-added availability⋈utilization cross-measure, tied to AG themes 2019.AU2.2 and AU2.3).
 - **209 nulls excluded / 4,405 non-null** availability denominator (excluded, never imputed).
 - **Row counts:** 4,614 (availability) / 2,086 (utilization) / 272,529 (ferry).
 

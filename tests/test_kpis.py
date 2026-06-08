@@ -49,6 +49,7 @@ EXPECTED_FERRY_SALES_2019 = 1249725
 EXPECTED_FERRY_SALES_2020 = 366606
 EXPECTED_FERRY_SALES_MAX = 7229
 EXPECTED_FERRY_SALES_MEDIAN = 12.0
+EXPECTED_DISPOSAL_CANDIDATE_N = 34
 
 
 def test_pooled_grand_total_mean(gold) -> None:
@@ -161,6 +162,25 @@ def test_snapshot_matches_live(gold) -> None:
     assert round(snap["overall_availability_rate"], 10) == round(live_rate, 10)
     assert snap["availability_null_n"] == live_null_n
     assert snap["ferry_sales_max"] == live_sales_max
+
+
+def test_disposal_candidate_count(gold) -> None:
+    """The flagship cross-measure: 34 disposal candidates (below target AND underutilized).
+
+    The availability⋈utilization value-add (AG 2019.AU2.2 / AU2.3) — units flagged
+    ``disposal_candidate`` in exception_list. Asserts the live count and the committed
+    snapshot both equal 34 (snapshot-as-contract, D-06).
+    """
+    live_n = _scalar(
+        gold, "SELECT COUNT(*) FROM exception_list WHERE disposal_candidate"
+    )
+    assert live_n == EXPECTED_DISPOSAL_CANDIDATE_N
+
+    json_path = config.KPI_DIR / "kpi_values.json"
+    with open(json_path, encoding="utf-8") as fh:
+        snap = json.load(fh)
+    assert snap["disposal_candidate_n"] == EXPECTED_DISPOSAL_CANDIDATE_N
+    assert snap["disposal_candidate_n"] == live_n
 
 
 def test_ferry_yoy_complete_years_only(gold) -> None:

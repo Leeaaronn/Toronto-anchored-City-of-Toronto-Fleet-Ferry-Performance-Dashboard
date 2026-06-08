@@ -28,6 +28,7 @@
   },
   "availability_nonnull_n": 4405,
   "availability_null_n": 209,
+  "disposal_candidate_n": 34,
   "ferry_complete_years": [
     2016,
     2025
