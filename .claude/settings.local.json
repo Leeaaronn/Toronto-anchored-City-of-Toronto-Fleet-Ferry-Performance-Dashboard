@@ -63,7 +63,15 @@
       "Bash('C:\\\\Users\\\\leeaa/.claude/get-shit-done/bin/gsd-sdk' query *)",
       "Bash(npx gsd-sdk *)",
       "Bash(git -C \"C:\\\\Users\\\\leeaa\\\\Toronto-anchored-City-of-Toronto-Fleet-Ferry-Performance-Dashboard\" rev-parse HEAD)",
-      "Bash(git merge *)"
+      "Bash(git merge *)",
+      "Bash(python -c \"import json;d=json.load\\(open\\('data/kpi/kpi_values.json'\\)\\);print\\([k for k in d if 'dispos' in k.lower\\(\\)] or 'no disposal key in json'\\)\")",
+      "Bash(python -c \"b=open\\('data/kpi/kpi_values.json','rb'\\).read\\(\\); print\\('CRLF' if b'\\\\r\\\\n' in b else 'LF only'\\); print\\('bytes',len\\(b\\)\\)\")",
+      "Bash(git check-attr *)",
+      "Bash(python -c ' *)",
+      "Bash(rm -f fleet-services-submission.zip)",
+      "Bash(zip -r -q fleet-services-submission.zip . -x */.venv/* .venv/* -x */__pycache__/* __pycache__/* *.pyc -x */.pytest_cache/* .pytest_cache/* -x */.ruff_cache/* .ruff_cache/* -x .git/* -x .claude.zip -x fleet-services-submission.zip -x *.duckdb *.duckdb.wal)",
+      "Bash(python -c \"import json;d=json.load\\(open\\('data/kpi/kpi_values.json'\\)\\);print\\('disposal_candidate_n =',d.get\\('disposal_candidate_n'\\)\\)\")",
+      "Bash(python -c \"import json;d=json.load\\(open\\('data/kpi/kpi_values.json'\\)\\);print\\('disposal_candidate_n =',d['disposal_candidate_n'],'| total keys =',len\\(d\\)\\)\")"
     ]
   }
 }
