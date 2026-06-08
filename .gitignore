@@ -14,3 +14,7 @@ data/bronze/
 build/
 *.egg-info/
 dist/
+
+# Submission / scratch archives (regenerated; not source)
+fleet-services-submission.zip
+.claude.zip
