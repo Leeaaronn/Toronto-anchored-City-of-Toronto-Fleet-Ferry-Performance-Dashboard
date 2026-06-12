@@ -9,13 +9,32 @@
 
 ## What this is
 
-A fleet analytics project for a City of Toronto **Fleet Services Division (FSD)** business-analyst assignment. It ingests, cleans, profiles, and models three real City datasets — vehicle availability, light-duty utilization, and Toronto Island Ferry ticket counts — into a tested star schema, computes audit-grounded KPIs, and hands off clean modeled output plus DAX-ready specs for a Power BI dashboard and two narrative deliverables for FSD management.
+A fleet analytics project for a City of Toronto **Fleet Services Division (FSD)** business-analyst assignment. It ingests, cleans, profiles, and models three real City datasets — vehicle availability, light-duty utilization, and Toronto Island Ferry ticket counts — into a tested star schema, computes audit-grounded KPIs, and hands off clean modeled output, a 3-page Power BI dashboard, and two narrative deliverables for FSD management.
 
 The work is anchored on the two Auditor General themes: **vehicle downtime** (2019.AU2.2) and **underutilization** (2019.AU2.3), plus the value-added availability⋈utilization join most candidates miss.
 
 ### Scope boundary
 
-Claude Code + GSD own the **data engineering layer only** — ingest, clean, profile, model (star schema), and the KPI/measures logic, all tested. The Power BI **report canvas is authored manually** by the user in Power BI Desktop on top of the modeled output. This repo produces clean modeled tables, a KPI definitions doc, a DAX-ready measures spec, and a page-by-page report spec — it does **not** generate a `.pbix`, PBIP, or TMDL.
+Claude Code + GSD own the **data engineering layer** — ingest, clean, profile, model (star schema), and the KPI/measures logic, all tested. The Power BI **report canvas was authored manually** in Power BI Desktop on top of the modeled output, following the page-by-page [report spec](deliverables/report_spec.md). The .pbix and PDF export are committed to the repo alongside the modeled data layer.
+
+## Dashboard
+
+A 3-page Power BI dashboard built on the modeled `data/gold/` tables, with every visual value reproducing the SQL-validated snapshot in `data/kpi/`. Source: [`Fleet_Services_Dashboard.pbix`](Fleet_Services_Dashboard.pbix) · PDF: [`Fleet_Services_Dashboard.pdf`](Fleet_Services_Dashboard.pdf).
+
+### Page 1 — Fleet Maintenance
+Overall availability KPI, availability-vs-target by asset class (audit-cited benchmarks), critical-low exception list, underutilization rate and division breakdown, and the 34-unit disposal-candidate screening list.
+
+![Fleet Maintenance page](Screenshots/fleet%20maintenance.png)
+
+### Page 2 — Ferry Operations
+Lifetime ticket totals, YoY trend with the 2020 COVID dip, calendar-month seasonality, day-of-week × hour demand heatmap, signed sales-to-redemption gap, and the right-skew distribution stats.
+
+![Ferry Operations page](Screenshots/Ferry%20Operations.png)
+
+### Page 3 — Summary / Insights
+Executive landing page leading with the two AG themes — downtime and underutilization — with the 34-unit disposal screen prominent as the cross-dataset differentiator, plus a ferry demand sparkline.
+
+![Summary page](Screenshots/Summary.png)
 
 ## How to run
 
@@ -32,18 +51,20 @@ uv run python -m fleet_analytics.pipeline    # ingest -> transform -> model -> e
 ## Test gate
 
 ```bash
-uv run pytest -q     # -> 77 passed, as of 2026-06-06
+uv run pytest -q     # -> 78 passed, as of 2026-06-11
 ```
 
-The suite covers schema/row-count contracts, the 209-null DQ guard, the flagship join-integrity asserts (2,080 matched / 6 unmatched, no fan-out), derived-field correctness, KPI bounds, and an end-to-end pipeline smoke test. The count above is a dated result, not an eternal invariant — re-run the command to confirm the current state.
+The suite covers schema/row-count contracts, the 209-null DQ guard, the flagship join-integrity asserts (2,080 matched / 6 unmatched, no fan-out), derived-field correctness, KPI bounds, the 34-disposal-candidate cross-measure, and an end-to-end pipeline smoke test. The count above is a dated result, not an eternal invariant — re-run the command to confirm the current state.
 
 ## Outputs / handoff
 
 | Path | Contents | Consumer |
 |------|----------|----------|
+| `Fleet_Services_Dashboard.pbix` | 3-page Power BI dashboard (Fleet Maintenance, Ferry Operations, Summary) | Power BI Desktop |
+| `Fleet_Services_Dashboard.pdf` | PDF export of the dashboard for offline review | Panel hand-off |
 | `data/gold/*.parquet` | 6 type-preserving star-schema tables (`dim_division`, `fact_vehicle`, `fact_ferry`, `dim_date`, `dim_time`, `dim_class_target`) | Power BI Desktop (import) |
 | `data/gold/*.csv` | Human-readable mirror of the same tables | Inspection |
-| `data/kpi/kpi_values.json` + `*.csv` | Authoritative KPI snapshot — every dashboard number must reproduce a value here | Validation / Power BI |
+| `data/kpi/kpi_values.json` + `*.csv` | Authoritative KPI snapshot — every dashboard number reproduces a value here | Validation / Power BI |
 | `deliverables/*.md` | Data dictionary, DQ report, KPI definitions, measures spec, report spec, two narratives | Submission |
 
 ## Headline numbers
